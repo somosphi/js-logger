@@ -1,0 +1,22 @@
+extends:
+  - plugin:@typescript-eslint/recommended
+plugins:
+  - '@typescript-eslint'
+parser: '@typescript-eslint/parser'
+parserOptions:
+  project:
+    - './tsconfig.json'
+rules:
+  arrow-body-style: 0
+  max-len: [0, 150, 2]
+  no-underscore-dangle: 0
+  no-restricted-syntax: 0
+  no-await-in-loop: 0
+  prefer-arrow-callback: 0
+  camelcase: 0
+  '@typescript-eslint/interface-name-prefix': 0
+  '@typescript-eslint/ban-ts-ignore': 0
+  '@typescript-eslint/no-var-requires': 0
+globals:
+  __: true
+  jest: true

@@ -1,0 +1,52 @@
+{
+  "name": "@phipagamentos/logger",
+  "version": "0.1.0",
+  "description": "A package to include request/response logging inside services",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "rm -rf lib && tsc",
+    "test": "jest --runInBand \\.test\\.ts",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arielril/logger.git"
+  },
+  "author": "Ariel Ril",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arielril/logger/issues"
+  },
+  "homepage": "https://github.com/arielril/logger",
+  "dependencies": {
+    "@types/bunyan": "^1.8.6",
+    "@types/express": "^4.17.1",
+    "@types/moment-timezone": "^0.5.12",
+    "@types/ramda": "^0.26.21",
+    "@types/uuid": "^3.4.5",
+    "axios": "^0.19.0",
+    "bunyan": "^1.8.12",
+    "moment-timezone": "^0.5.26",
+    "ramda": "^0.26.1",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/sinon": "^7.0.13",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.15.2",
+    "jest": "^24.9.0",
+    "nock": "^11.3.3",
+    "sinon": "^7.4.2",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.19.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.6.2"
+  }
+}
