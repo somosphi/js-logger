@@ -2,8 +2,8 @@
   "name": "@phipagamentos/logger",
   "version": "0.1.0",
   "description": "A package to include request/response logging inside services",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "rm -rf lib && tsc",
     "test": "jest --runInBand \\.test\\.ts",
@@ -11,18 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arielril/logger.git"
+    "url": "https://github.com/somosphi/js-logger"
   },
-  "author": "Ariel Ril",
+  "author": "Phi Pagamentos",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arielril/logger/issues"
+    "url": "https://github.com/somosphi/js-logger/issues"
   },
-  "homepage": "https://github.com/arielril/logger",
+  "homepage": "https://github.com/somosphi/js-logger",
   "dependencies": {
     "@types/bunyan": "^1.8.6",
     "@types/express": "^4.17.1",
     "@types/moment-timezone": "^0.5.12",
+    "@types/node": "^12.7.4",
     "@types/ramda": "^0.26.21",
     "@types/uuid": "^3.4.5",
     "axios": "^0.19.0",
@@ -33,7 +34,6 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
-    "@types/sinon": "^7.0.13",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "eslint": "^6.2.2",

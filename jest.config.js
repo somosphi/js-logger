@@ -30,6 +30,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     'd.ts',
+    '/lib/',
   ],
 
   // A list of reporter names that Jest uses when writing coverage reports
@@ -137,6 +138,7 @@ module.exports = {
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: [
     '/node_modules/',
+    '/lib/',
   ],
 
   // The regexp pattern Jest uses to detect test files
