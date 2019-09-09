@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
+
+## [1.1.0]
+### Changed
+- Moved to classes for Axios and Express Logger
+- Changed the package name for @somosphi org
+
 ## [1.0.0]
 ### Added
 - Axios Logger
