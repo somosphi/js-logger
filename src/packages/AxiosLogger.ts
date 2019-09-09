@@ -1,12 +1,11 @@
+import bunyan from 'bunyan';
 import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
-import moment from 'moment';
 import {
   AxiosInstance, AxiosRequestConfig,
   AxiosResponse, AxiosError,
 } from 'axios';
-
-import { Logger } from '../Logger';
+import { IAxiosLogger, LoggerContext } from '../../types';
 
 declare module 'axios' {
   interface AxiosRequestConfig {
@@ -14,13 +13,29 @@ declare module 'axios' {
   }
 }
 
-const chLogger = Logger.child({
-  origin: 'Axios',
-});
+export default class AxiosLogger implements IAxiosLogger {
+  private logger: bunyan;
 
-const logRequest = R.curryN(
-  1,
-  (config: AxiosRequestConfig): AxiosRequestConfig => {
+  constructor (context: LoggerContext) {
+    this.logger = context.logger.child({
+      origin: 'Axios',
+    });
+  }
+
+  /**
+   * Attaches the request/response interceptor for Axios
+   * @param axiosInstance Axios instance
+   */
+  attachInterceptor(axiosInstance: AxiosInstance): void {
+    axiosInstance.interceptors.request.use(
+      this.logRequest, this.logError,
+    );
+    axiosInstance.interceptors.response.use(
+      this.logResponse, this.logError,
+    );
+  }
+
+  private logRequest(config: AxiosRequestConfig): AxiosRequestConfig {
     const pickData: string[] = ['headers', 'method', 'url', 'data', 'params'];
     const requestId: string = uuid();
 
@@ -38,16 +53,13 @@ const logRequest = R.curryN(
 
     // @ts-ignore
     const __data__ = getLog(config);
-    chLogger.info(__data__);
+    this.logger.info(__data__);
 
     config.__requestId__ = requestId;
     return config;
-  },
-);
+  }
 
-const logResponse = R.curryN(
-  1,
-  (response: AxiosResponse): AxiosResponse => {
+  private logResponse(response: AxiosResponse): AxiosResponse {
     const picks: string[] = ['headers', 'data', 'status', 'statusText'];
     const baseData = {
       type: 'Response',
@@ -61,15 +73,12 @@ const logResponse = R.curryN(
     );
 
     const __data__ = getLog(response);
-    chLogger.info(__data__);
+    this.logger.info(__data__);
 
     return response;
-  },
-);
+  }
 
-const logError = R.curryN(
-  1,
-  (error: AxiosError): Promise<AxiosError> => {
+  private logError(error: AxiosError): Promise<AxiosError> {
     const picks: string[] = ['message', 'stack'];
     const baseData = {
       type: 'Error',
@@ -86,21 +95,8 @@ const logError = R.curryN(
       JSON.stringify,
     );
     const __err__ = getLog(error);
-    chLogger.error(__err__);
+    this.logger.error(__err__);
 
     return Promise.reject(error);
-  },
-);
-
-/**
- * Attaches the request/response interceptor for Axios
- * @param axiosInstance Axios instance or full package
- */
-export function attachInteceptor(axiosInstance: AxiosInstance): void {
-  axiosInstance.interceptors.request.use(
-    logRequest(), logError(),
-  );
-  axiosInstance.interceptors.response.use(
-    logResponse(), logError(),
-  );
+  }
 }
