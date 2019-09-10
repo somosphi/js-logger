@@ -24,10 +24,14 @@ export default function init(config: LoggerConfig): ILogger {
     logger,
   };
 
+  const axios = new AxiosLogger(context);
+  const express = new ExpressLogger(context);
+  const request = new RequestLogger(context);
+
   return {
     Logger: logger,
-    AxiosLogger: new AxiosLogger(context),
-    ExpressLogger: new ExpressLogger(context),
-    RequestLogger: new RequestLogger(context),
+    AxiosLogger: axios,
+    ExpressLogger: express,
+    RequestLogger: request,
   };
 }

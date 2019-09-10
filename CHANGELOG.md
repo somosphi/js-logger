@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
+## [1.2.3]
+### Changed
+- Changed the init function but it doesn't affect the old users
 
 ## [1.2.2]
 ### Fixed
