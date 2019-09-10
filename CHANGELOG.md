@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
+## [1.2.1]
+### Fixed
+- Fix readme title and installation sections
+
 ## [1.2.0]
 ### Added
 - Request Logger for request package
