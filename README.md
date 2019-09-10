@@ -64,3 +64,18 @@ AxiosLogger.attachInterceptor(axiosInstance);
 {"name":"project-name","hostname":"hostname.local","pid":24654,"level":30,"msg":"{\"origin\":\"Axios\",\"requrestId\":\"77215bf8-f821-4faf-bcc1-2c0260eafc66\",\"type\":\"Request or Response\",\"headers\":{\"data\":\"all headers\"},\"body\":{\"data\":\"all body\"},\"method\":\"HTTP Method\",\"url\":\"https://somosphi.com\",\"data\":{\"data\":\"all data from axios\"},\"params\":{\"data\":\"params used\"},\"status\":200,\"statusText\":\"OK\"}","time":"2019-09-10T00:53:40.767Z","v":0}
 */
 ```
+
+### Request Debug
+```javascript
+const { RequestLogger } = require('@somosphi/logger').default({
+  PROJECT_NAME: 'project-name',
+});
+const request = require('request');
+
+RequestLogger.attachDebug(request);
+
+/*
+  This will create the following log:
+{"name":"project-name","hostname":"hostname.local","pid":24654,"level":30,"msg":"{\"origin\":\"Request\",\"requrestId\":\"77215bf8-f821-4faf-bcc1-2c0260eafc66\",\"type\":\"Request or Response\",\"headers\":{\"data\":\"all headers\"},\"body\":{\"data\":\"all body\"},\"method\":\"HTTP Method\",\"url\":\"https://somosphi.com\",\"data\":{\"data\":\"all data from axios\"},\"params\":{\"data\":\"params used\"},\"status\":200,\"statusText\":\"OK\"}","time":"2019-09-10T00:53:40.767Z","v":0}
+*/
+```

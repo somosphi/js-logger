@@ -21,7 +21,7 @@ export default class ExpressLogger implements IExpressLogger {
    * @param next ExpressJS next function
    */
   onSuccess(req: Request, res: Response, next: NextFunction): void {
-    const omitRoutes = this.config.OMIT_ROUTES;
+    const omitRoutes = this.config.OMIT_ROUTES || [];
 
     if (omitRoutes.includes(req.url)) {
       next();
@@ -51,7 +51,7 @@ export default class ExpressLogger implements IExpressLogger {
 
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    res.end = function _end(chunck: any, encode: string): void {
+    res.end = (chunck: any, encode: string): void => {
       res.end = end;
       res.end(chunck, encode);
 

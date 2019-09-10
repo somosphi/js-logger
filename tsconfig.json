@@ -5,9 +5,14 @@
     "target": "es6",
     "removeComments": true,
     "declaration": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true
   },
   "include": [
     "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*"
   ]
 }
