@@ -84,9 +84,11 @@ export default class AxiosLogger implements IAxiosLogger {
       type: 'Error',
       level: 'error',
     };
+    const __data__ = R.mergeDeepLeft(
+      R.pick(picks, error),
+      R.path(['response', 'data'], error),
+    );
     const getLog = R.pipe(
-      R.path(['response', 'data']),
-      R.mergeDeepLeft(R.pick(picks, error)),
       R.mergeDeepLeft(baseData),
       R.assoc(
         'requestId',
@@ -94,7 +96,7 @@ export default class AxiosLogger implements IAxiosLogger {
       ),
       JSON.stringify,
     );
-    const __err__ = getLog(error);
+    const __err__ = getLog(__data__);
     this.logger.error(__err__);
 
     return Promise.reject(error);
