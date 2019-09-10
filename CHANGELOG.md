@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
+### Fixed
+- Import logger file path
 
 ## [1.2.1]
 ### Fixed

@@ -1,6 +1,6 @@
 import bunyan from 'bunyan';
 
-import logger from './logger';
+import Logger from './Logger';
 import AxiosLogger from './packages/AxiosLogger';
 import ExpressLogger from './packages/ExpressLogger';
 import RequestLogger from './packages/RequestLogger';
@@ -18,14 +18,14 @@ interface ILogger {
 }
 
 export default function init(config: LoggerConfig): ILogger {
-  const Logger = logger(config);
+  const logger = Logger(config);
   const context: LoggerContext = {
     config,
-    logger: Logger,
+    logger,
   };
 
   return {
-    Logger,
+    Logger: logger,
     AxiosLogger: new AxiosLogger(context),
     ExpressLogger: new ExpressLogger(context),
     RequestLogger: new RequestLogger(context),
