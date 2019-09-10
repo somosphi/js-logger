@@ -28,10 +28,10 @@ export default class AxiosLogger implements IAxiosLogger {
    */
   attachInterceptor(axiosInstance: AxiosInstance): void {
     axiosInstance.interceptors.request.use(
-      this.logRequest, this.logError,
+      this.logRequest.bind(this), this.logError.bind(this),
     );
     axiosInstance.interceptors.response.use(
-      this.logResponse, this.logError,
+      this.logResponse.bind(this), this.logError.bind(this),
     );
   }
 

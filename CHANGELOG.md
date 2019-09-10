@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
+## [1.2.5]
+### Fixed
+- Axios attachInterceptor function
+
 ## [1.2.4]
 ### Fixed
 - Axios log error function
