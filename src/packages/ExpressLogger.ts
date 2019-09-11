@@ -21,6 +21,7 @@ export default class ExpressLogger implements IExpressLogger {
    * @param next ExpressJS next function
    */
   onSuccess(req: Request, res: Response, next: NextFunction): void {
+    const localLogger = this.logger;
     const omitRoutes = this.config.OMIT_ROUTES || [];
 
     if (omitRoutes.includes(req.url)) {
@@ -51,7 +52,8 @@ export default class ExpressLogger implements IExpressLogger {
 
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    res.end = (chunck: any, encode: string): void => {
+    res.end = function end(chunck: any, encode: string): void {
+      // @ts-ignore
       res.end = end;
       res.end(chunck, encode);
 
@@ -65,7 +67,7 @@ export default class ExpressLogger implements IExpressLogger {
         body = rawBody;
       }
 
-      this.logger.info(JSON.stringify({
+      localLogger.info(JSON.stringify({
         requestId,
         headers,
         body,
@@ -85,6 +87,6 @@ export default class ExpressLogger implements IExpressLogger {
    * @param next ExpressJS next function
    */
   onError(error: Error, req: Request, res: Response, next: NextFunction): void {
-    this.onSuccess(req, res, next.bind(null, error));
+    this.onSuccess.bind(this, req, res, next.bind(null, error));
   }
 }

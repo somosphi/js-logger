@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
+### Added
+- Added this bind for express logger
+
 
 ## [1.2.5]
 ### Fixed
