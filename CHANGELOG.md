@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
+### Added
+- Added child logger to use in express logger
+
+### Changed
+- Removed explicit return of interface from init function
 
 ## [1.2.7]
 ### Fixed

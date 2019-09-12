@@ -6,8 +6,7 @@ import { ExpressLogger } from './packages/ExpressLogger';
 import { RequestLogger } from './packages/RequestLogger';
 import {
   IExpressLogger, IAxiosLogger, LoggerContext,
-  LoggerConfig,
-  IRequestLogger,
+  LoggerConfig, IRequestLogger,
 } from '../types';
 
 interface ILogger {
@@ -17,7 +16,7 @@ interface ILogger {
   RequestLogger: IRequestLogger;
 }
 
-export function init(config: LoggerConfig): ILogger {
+export function init(config: LoggerConfig) {
   const logger = Logger(config);
   const context: LoggerContext = {
     config,

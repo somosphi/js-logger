@@ -10,7 +10,9 @@ export class ExpressLogger implements IExpressLogger {
   private readonly config: LoggerConfig;
 
   constructor (context: LoggerContext) {
-    this.logger = context.logger;
+    this.logger = context.logger.child({
+      origin: 'Express',
+    });
     this.config = context.config;
   }
 
@@ -39,7 +41,6 @@ export class ExpressLogger implements IExpressLogger {
       const baseData = {
         requestId,
         type: 'Request',
-        level: 'info',
       };
       const __data__ = R.pipe(
         R.pick(pickReq),
@@ -71,7 +72,6 @@ export class ExpressLogger implements IExpressLogger {
         headers,
         body,
         type: 'Response',
-        level: 'info',
       }));
     };
 
