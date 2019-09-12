@@ -40,8 +40,8 @@ const { ExpressLogger } = require('@somosphi/logger').default({
 });
 
 /** Request/Response Logger */
-app.use(ExpressLogger.onSuccess);
-app.use(ExpressLogger.onError);
+app.use(ExpressLogger.onSuccess.bind(ExpressLogger));
+app.use(ExpressLogger.onError.bind(ExpressLogger));
 
 /*
   This will create the following log:
@@ -57,7 +57,7 @@ const { AxiosLogger } = require('@somosphi/logger').default({
 
 const axiosInstance = require('axios').default.create({ ...config });
 
-AxiosLogger.attachInterceptor(axiosInstance);
+AxiosLogger.attachInterceptor.bind(AxiosLogger, axiosInstance);
 
 /*
   This will create the following log:
@@ -72,7 +72,7 @@ const { RequestLogger } = require('@somosphi/logger').default({
 });
 const request = require('request');
 
-RequestLogger.attachDebug(request);
+RequestLogger.attachDebug.bind(RequestLogger, request);
 
 /*
   This will create the following log:

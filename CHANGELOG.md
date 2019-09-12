@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Added child logger to use in express logger
 
+### Fixed
+- Description README, adding the binding to the loggers
+
 ### Changed
 - Removed explicit return of interface from init function
 
