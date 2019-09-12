@@ -13,7 +13,7 @@ declare module 'axios' {
   }
 }
 
-export default class AxiosLogger implements IAxiosLogger {
+export class AxiosLogger implements IAxiosLogger {
   private logger: bunyan;
 
   constructor (context: LoggerContext) {

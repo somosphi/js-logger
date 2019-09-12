@@ -5,9 +5,9 @@ import { Request, Response, NextFunction } from 'express';
 
 import { IExpressLogger, LoggerContext, LoggerConfig } from '../../types';
 
-export default class ExpressLogger implements IExpressLogger {
-  private logger: bunyan;
-  private config: LoggerConfig;
+export class ExpressLogger implements IExpressLogger {
+  private readonly logger: bunyan;
+  private readonly config: LoggerConfig;
 
   constructor (context: LoggerContext) {
     this.logger = context.logger;
@@ -52,8 +52,7 @@ export default class ExpressLogger implements IExpressLogger {
 
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    res.end = function end(chunck: any, encode: string): void {
-      // @ts-ignore
+    res.end = function _end(chunck: any, encode: string): void {
       res.end = end;
       res.end(chunck, encode);
 

@@ -1,10 +1,11 @@
 import logger from '../../logger';
-import ExpressLogger from '../ExpressLogger';
+import { ExpressLogger } from '../ExpressLogger';
 
 describe('Express Logger', () => {
   const expressLogger = new ExpressLogger({
     logger: logger({ PROJECT_NAME: 'express-logger' }),
     config: {
+      PROJECT_NAME: 'express-test',
       OMIT_ROUTES: ['/status', '/info'],
     },
   });

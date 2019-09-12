@@ -6,7 +6,7 @@ import requestDebug, { LogData, LogPhase } from 'request-debug';
 
 import { LoggerContext, IRequestLogger } from '../../types';
 
-export default class RequestLogger implements IRequestLogger {
+export class RequestLogger implements IRequestLogger {
   private logger: bunyan;
 
   constructor (context: LoggerContext) {

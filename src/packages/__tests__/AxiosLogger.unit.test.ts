@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 import logger from '../../logger';
-import AxiosLogger from '../AxiosLogger';
+import { AxiosLogger } from '../AxiosLogger';
 
 describe('Axios Log', () => {
   const axiosLogger = new AxiosLogger({
     logger: logger({ PROJECT_NAME: 'axios-Test' }),
-    config: {},
+    config: { PROJECT_NAME: 'axios-test' },
   });
 
   describe('Properties', () => {
