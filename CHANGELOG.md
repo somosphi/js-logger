@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
+## [1.2.7]
+### Fixed
+- Fixed express logger
 
 ## [1.2.6]
 ### Added
