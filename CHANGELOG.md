@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Ongoing Changes
 
 
+## [1.2.9]
+### Changed
+- Changed some types to the types folder
+- Changed configuration for the compiler
+
 ## [1.2.8]
 ### Added
 - Added child logger to use in express logger
