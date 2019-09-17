@@ -2,14 +2,16 @@
   "compilerOptions": {
     "outDir": "./lib",
     "module": "commonjs",
-    "target": "es6",
+    "target": "es5",
     "removeComments": true,
-    "declaration": true,
     "esModuleInterop": true,
-    "strict": true
+    "noImplicitAny": true,
+    "strict": true,
+    "declaration": true
   },
   "include": [
-    "src/**/*"
+    "src",
+    "types"
   ],
   "exclude": [
     "node_modules",
