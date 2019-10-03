@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Ongoing Changes
 
 
+## [1.2.10]
+### Fixed
+- Fixed this.logger undefined error when using the debuger for RequestDebug
+
 ## [1.2.9]
 ### Changed
 - Changed some types to the types folder

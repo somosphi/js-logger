@@ -20,7 +20,7 @@ export class RequestLogger implements IRequestLogger {
    * @param requestPackage Request package to attach debug
    */
   attachDebug(requestPackage: RequestAPI<Request, CoreOptions, UriOptions>): void {
-    requestDebug(requestPackage, this.treatLog);
+    requestDebug(requestPackage, this.treatLog.bind(this));
   }
 
   private treatLog(phase: LogPhase, data: LogData) {
