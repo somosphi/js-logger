@@ -59,7 +59,7 @@ const { AxiosLogger } = require('@somosphi/logger').init({
 
 const axiosInstance = require('axios').default.create({ ...config });
 
-AxiosLogger.attachInterceptor.bind(AxiosLogger, axiosInstance);
+AxiosLogger.attachInterceptor.bind(AxiosLogger)(axiosInstance);
 
 /*
   This will create the following log:
@@ -74,7 +74,7 @@ const { RequestLogger } = require('@somosphi/logger').init({
 });
 const request = require('request');
 
-RequestLogger.attachDebug.bind(RequestLogger, request);
+RequestLogger.attachDebug.bind(RequestLogger)(request);
 
 /*
   This will create the following log:
@@ -139,7 +139,7 @@ const {
 
 const axiosInstance = axios.default.create({ ...config });
 
-AxiosLogger.attachInterceptor.bind(AxiosLogger, axiosInstance);
+AxiosLogger.attachInterceptor.bind(AxiosLogger)(axiosInstance);
 
 /*
   This will create the following log:
@@ -158,7 +158,7 @@ const {
   PROJECT_NAME: 'project-name',
 });
 
-RequestLogger.attachDebug.bind(RequestLogger, request);
+RequestLogger.attachDebug.bind(RequestLogger)(request);
 
 /*
   This will create the following log:
