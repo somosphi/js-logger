@@ -4,10 +4,11 @@ import { v4 as uuid } from 'uuid';
 import {
   AxiosInstance, AxiosRequestConfig,
   AxiosResponse, AxiosError,
-} from '../types/node_modules/axios';
+} from 'axios';
 import { IAxiosLogger, LoggerContext } from '../types';
 
 declare module 'axios' {
+  // tslint:disable-next-line: interface-name
   interface AxiosRequestConfig {
     __requestId__?: string;
   }
@@ -84,10 +85,12 @@ export class AxiosLogger implements IAxiosLogger {
       type: 'Error',
       level: 'error',
     };
+
     const __data__ = R.mergeDeepLeft(
       R.pick(picks, error),
-      R.path(['response', 'data'], error),
+      R.pathOr({}, ['response', 'data'], error),
     );
+
     const getLog = R.pipe(
       R.mergeDeepLeft(baseData),
       R.assoc(

@@ -1,7 +1,7 @@
 import bunyan from 'bunyan';
 import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
-import { Request, Response, NextFunction } from '../types/node_modules/express';
+import { Request, Response, NextFunction } from 'express';
 
 import { IExpressLogger, LoggerContext, LoggerConfig } from '../types';
 

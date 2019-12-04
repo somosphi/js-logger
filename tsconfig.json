@@ -2,19 +2,26 @@
   "compilerOptions": {
     "outDir": "./lib",
     "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
     "removeComments": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
     "strict": true,
-    "declaration": true
+    "declaration": true,
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "ignoreDefinitionFiles": false,
+        "configFile": "./tslint.json"
+      }
+    ]
   },
   "include": [
-    "src",
-    "src/types"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "**/__tests__/*"
+    "**/__tests__/*",
+    "**/__mocks__/**/*"
   ]
 }
