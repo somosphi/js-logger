@@ -3,13 +3,13 @@ import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
 import { Request, Response, NextFunction } from 'express';
 
-import { IExpressLogger, LoggerContext, LoggerConfig } from '../types';
+import { IExpressLogger, ILoggerContext, ILoggerConfig } from '../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
-  private readonly config: LoggerConfig;
+  private readonly config: ILoggerConfig;
 
-  constructor(context: LoggerContext) {
+  constructor(context: ILoggerContext) {
     this.logger = context.logger.child({
       origin: 'Express',
     });

@@ -4,13 +4,13 @@ import { AxiosLogger } from './packages/AxiosLogger';
 import { ExpressLogger } from './packages/ExpressLogger';
 import { RequestLogger } from './packages/RequestLogger';
 import {
-  LoggerContext,
-  LoggerConfig,
+  ILoggerContext,
+  ILoggerConfig,
 } from './types';
 
-export function init(config: LoggerConfig) {
+export function init(config: ILoggerConfig) {
   const logger: bunyan = BLogger.default(config);
-  const context: LoggerContext = {
+  const context: ILoggerContext = {
     config,
     logger,
   };

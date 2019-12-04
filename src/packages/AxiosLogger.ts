@@ -5,7 +5,7 @@ import {
   AxiosInstance, AxiosRequestConfig,
   AxiosResponse, AxiosError,
 } from 'axios';
-import { IAxiosLogger, LoggerContext } from '../types';
+import { IAxiosLogger, ILoggerContext } from '../types';
 
 declare module 'axios' {
   // tslint:disable-next-line: interface-name
@@ -17,7 +17,7 @@ declare module 'axios' {
 export class AxiosLogger implements IAxiosLogger {
   private logger: bunyan;
 
-  constructor(context: LoggerContext) {
+  constructor(context: ILoggerContext) {
     this.logger = context.logger.child({
       origin: 'Axios',
     });

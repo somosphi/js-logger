@@ -4,19 +4,20 @@ import { AxiosStatic, AxiosInstance } from 'axios';
 import { RequestAPI, CoreOptions, UriOptions, Request } from 'request';
 
 declare module 'express' {
+  // tslint:disable-next-line: interface-name
   interface Request {
     __requestId__?: string;
   }
 }
 
-export interface LoggerConfig {
+export interface ILoggerConfig {
   PROJECT_NAME: string;
   OMIT_ROUTES?: string[];
 }
 
-export interface LoggerContext {
+export interface ILoggerContext {
   logger: bunyan;
-  config: LoggerConfig;
+  config: ILoggerConfig;
 }
 
 export interface IExpressLogger {
