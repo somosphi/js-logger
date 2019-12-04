@@ -6,7 +6,7 @@ import { RequestLogger } from './packages/RequestLogger';
 import {
   LoggerContext,
   LoggerConfig,
-} from '../types';
+} from './types';
 
 export function init(config: LoggerConfig) {
   const logger: bunyan = BLogger.default(config);

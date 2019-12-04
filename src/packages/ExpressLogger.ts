@@ -1,15 +1,15 @@
 import bunyan from 'bunyan';
 import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from '../types/node_modules/express';
 
-import { IExpressLogger, LoggerContext, LoggerConfig } from '../../types';
+import { IExpressLogger, LoggerContext, LoggerConfig } from '../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
   private readonly config: LoggerConfig;
 
-  constructor (context: LoggerContext) {
+  constructor(context: LoggerContext) {
     this.logger = context.logger.child({
       origin: 'Express',
     });

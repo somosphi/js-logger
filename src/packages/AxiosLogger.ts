@@ -4,8 +4,8 @@ import { v4 as uuid } from 'uuid';
 import {
   AxiosInstance, AxiosRequestConfig,
   AxiosResponse, AxiosError,
-} from 'axios';
-import { IAxiosLogger, LoggerContext } from '../../types';
+} from '../types/node_modules/axios';
+import { IAxiosLogger, LoggerContext } from '../types';
 
 declare module 'axios' {
   interface AxiosRequestConfig {
@@ -16,7 +16,7 @@ declare module 'axios' {
 export class AxiosLogger implements IAxiosLogger {
   private logger: bunyan;
 
-  constructor (context: LoggerContext) {
+  constructor(context: LoggerContext) {
     this.logger = context.logger.child({
       origin: 'Axios',
     });

@@ -1,15 +1,15 @@
 import * as R from 'ramda';
 import bunyan from 'bunyan';
 import { v4 as uuid } from 'uuid';
-import { RequestAPI, Request, CoreOptions, UriOptions } from 'request';
+import { RequestAPI, Request, CoreOptions, UriOptions } from '../types/node_modules/request';
 import requestDebug, { LogData, LogPhase } from 'request-debug';
 
-import { LoggerContext, IRequestLogger } from '../../types';
+import { LoggerContext, IRequestLogger } from '../types';
 
 export class RequestLogger implements IRequestLogger {
   private logger: bunyan;
 
-  constructor (context: LoggerContext) {
+  constructor(context: LoggerContext) {
     this.logger = context.logger.child({
       origin: 'Request',
     });
