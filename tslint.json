@@ -10,6 +10,7 @@
     "no-empty-interface": false,
     "object-literal-sort-keys": false,
     "member-access": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "object-shorthand-properties-first": false
   }
 }
