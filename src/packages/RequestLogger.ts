@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { RequestAPI, Request, CoreOptions, UriOptions } from 'request';
 import requestDebug, { LogData, LogPhase } from 'request-debug';
 
-import { ILoggerContext, IRequestLogger } from '../types';
+import { ILoggerContext, IRequestLogger } from '../../types';
 
 export class RequestLogger implements IRequestLogger {
   private logger: bunyan;

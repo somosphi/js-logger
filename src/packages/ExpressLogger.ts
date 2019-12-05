@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
 import { Request, Response, NextFunction } from 'express';
 
-import { IExpressLogger, ILoggerContext, ILoggerConfig } from '../types';
+import { IExpressLogger, ILoggerContext, ILoggerConfig } from '../../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
