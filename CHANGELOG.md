@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
+## [1.2.13]
+### Fixed
+- Declaration of the init function type
 
 ## [1.2.12]
 ### Fixed
