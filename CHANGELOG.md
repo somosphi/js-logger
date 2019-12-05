@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Ongoing Changes
 
 
+## [1.2.12]
+### Fixed
+- Types definition folder and build
 
 ## [1.2.11]
 ### Fixed
