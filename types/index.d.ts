@@ -3,6 +3,13 @@ import { Request as ERequest, Response, NextFunction } from 'express';
 import { AxiosStatic, AxiosInstance } from 'axios';
 import { RequestAPI, CoreOptions, UriOptions, Request } from 'request';
 
+declare function init(config: ILoggerConfig): {
+  Logger: bunyan;
+  AxiosLogger: IAxiosLogger;
+  ExpressLogger: IExpressLogger;
+  RequestLogger: IRequestLogger;
+};
+
 declare module 'express' {
   // tslint:disable-next-line: interface-name
   interface Request {
