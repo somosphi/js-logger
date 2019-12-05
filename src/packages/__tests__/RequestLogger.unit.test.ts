@@ -4,7 +4,7 @@ import sinon from 'sinon';
 
 import logger from '../../logger';
 import { RequestLogger } from '../RequestLogger';
-import { ILoggerConfig } from '../../types';
+import { ILoggerConfig } from '../../../types';
 import { promisify } from 'util';
 
 describe('Express Logger', () => {
