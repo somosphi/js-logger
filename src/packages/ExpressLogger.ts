@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
 import { Request, Response, NextFunction } from 'express';
 
-import { IExpressLogger, ILoggerContext, ILoggerConfig } from '../../types';
+import { IExpressLogger, ILoggerContext, ILoggerConfig } from '../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
@@ -45,10 +45,9 @@ export class ExpressLogger implements IExpressLogger {
       const __data__ = R.pipe(
         R.pick(pickReq),
         R.mergeDeepLeft(baseData),
-        JSON.stringify,
       )(req);
 
-      this.logger.info(__data__);
+      localLogger.debug(__data__);
     }
 
     // @ts-ignore
@@ -67,12 +66,21 @@ export class ExpressLogger implements IExpressLogger {
         body = rawBody;
       }
 
-      localLogger.info(JSON.stringify({
+      localLogger.debug({
         requestId,
         headers,
         body,
         type: 'Response',
-      }));
+      });
+
+      localLogger.info({
+        request_id: requestId,
+        method: R.prop('method', req),
+        path: R.prop('url', req),
+        client_ip: '192.168.0.1',
+        'X-Forewarded-For': R.prop('X-Forewarded-For', headers),
+        latency: R.prop('X-Request-Time', headers),
+      });
     };
 
     next();

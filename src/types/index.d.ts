@@ -19,6 +19,7 @@ declare module 'express' {
 
 export interface ILoggerConfig {
   PROJECT_NAME: string;
+  LOG_LEVEL: bunyan.LogLevel;
   OMIT_ROUTES?: string[];
 }
 

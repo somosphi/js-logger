@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { RequestAPI, Request, CoreOptions, UriOptions } from 'request';
 import requestDebug, { LogData, LogPhase } from 'request-debug';
 
-import { ILoggerContext, IRequestLogger } from '../../types';
+import { ILoggerContext, IRequestLogger } from '../types';
 
 export class RequestLogger implements IRequestLogger {
   private logger: bunyan;
@@ -23,7 +23,7 @@ export class RequestLogger implements IRequestLogger {
    */
   attachDebug = (requestPackage: RequestAPI<Request, CoreOptions, UriOptions>): void => {
     requestDebug(requestPackage, this.treatLog);
-  }
+  };
 
   private log = (data: object) => this.logger.info(JSON.stringify(data));
 
@@ -37,7 +37,7 @@ export class RequestLogger implements IRequestLogger {
     };
 
     return R.mergeDeepLeft(base, data);
-  }
+  };
 
   private logResponse = (data: LogData): object => {
     const reqId = this._cache.get(data.debugId);
@@ -49,7 +49,7 @@ export class RequestLogger implements IRequestLogger {
     };
 
     return R.mergeDeepLeft(base, data);
-  }
+  };
 
   private parseBody = (data: LogData) => {
     let body = {};
@@ -64,7 +64,7 @@ export class RequestLogger implements IRequestLogger {
 
     // @ts-ignore
     data.body = body;
-  }
+  };
 
   private treatLog = (phase: LogPhase, data: LogData) => {
     let treatFunc = (obj: LogData): object => ({});
@@ -80,5 +80,5 @@ export class RequestLogger implements IRequestLogger {
       R.omit(['debugId']),
       this.log,
     )(data);
-  }
+  };
 }

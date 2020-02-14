@@ -4,6 +4,13 @@
     "tslint-config-airbnb"
   ],
   "rules": {
+    "align": [
+      true,
+      "elements",
+      "members",
+      "parameters",
+      "statements"
+    ],
     "variable-name": false,
     "ordered-imports": false,
     "no-var-requires": false,
@@ -11,6 +18,8 @@
     "object-literal-sort-keys": false,
     "member-access": false,
     "member-ordering": false,
-    "object-shorthand-properties-first": false
+    "interface-over-type-literal": false,
+    "array-type": false,
+    "semicolon": false
   }
 }

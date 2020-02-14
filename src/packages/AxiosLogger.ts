@@ -5,7 +5,7 @@ import {
   AxiosInstance, AxiosRequestConfig,
   AxiosResponse, AxiosError,
 } from 'axios';
-import { IAxiosLogger, ILoggerContext } from '../../types';
+import { IAxiosLogger, ILoggerContext } from '../types';
 
 declare module 'axios' {
   // tslint:disable-next-line: interface-name

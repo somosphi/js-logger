@@ -15,8 +15,8 @@ describe('Express Logger', () => {
 
   it('has all required properties', () => {
     const reqLogger = new RequestLogger({
-      logger: logger(config),
       config,
+      logger: logger(config),
     });
 
     expect(reqLogger).toBeDefined();
@@ -27,8 +27,8 @@ describe('Express Logger', () => {
 
   it('can log with the right format', async () => {
     const reqLogger = new RequestLogger({
-      logger: logger(config),
       config,
+      logger: logger(config),
     });
 
     const spy = sinon.spy();
