@@ -1,9 +1,16 @@
 import bunyan from 'bunyan';
+// eslint-disable-next-line import/no-unresolved
 import { Request as ERequest, Response, NextFunction } from 'express';
-import { AxiosStatic, AxiosInstance } from 'axios';
-import { RequestAPI, CoreOptions, UriOptions, Request } from 'request';
+import { AxiosInstance } from 'axios';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {
+  RequestAPI,
+  CoreOptions,
+  UriOptions,
+  Request,
+} from 'request';
 
-declare function init(config: ILoggerConfig): {
+declare function init(config: LoggerConfig): {
   Logger: bunyan;
   AxiosLogger: IAxiosLogger;
   ExpressLogger: IExpressLogger;
@@ -17,15 +24,15 @@ declare module 'express' {
   }
 }
 
-export interface ILoggerConfig {
+export interface LoggerConfig {
   PROJECT_NAME: string;
-  LOG_LEVEL: bunyan.LogLevel;
+  LOG_LEVEL?: bunyan.LogLevel;
   OMIT_ROUTES?: string[];
 }
 
-export interface ILoggerContext {
+export interface LoggerContext {
   logger: bunyan;
-  config: ILoggerConfig;
+  config: LoggerConfig;
 }
 
 export interface IExpressLogger {

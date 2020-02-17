@@ -1,8 +1,8 @@
 import bunyan from 'bunyan';
 
-import { ILoggerConfig } from './types';
+import { LoggerConfig } from './types';
 
-export default function logger(config: ILoggerConfig): bunyan {
+export default function logger(config: LoggerConfig): bunyan {
   return bunyan.createLogger({
     name: config.PROJECT_NAME,
     level: config.LOG_LEVEL,

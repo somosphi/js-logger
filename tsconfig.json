@@ -4,14 +4,7 @@
     "module": "commonjs",
     "target": "es6",
     "esModuleInterop": true,
-    "strict": true,
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "ignoreDefinitionFiles": false,
-        "configFile": "./tslint.json"
-      }
-    ]
+    "strict": true
   },
   "include": [
     "./src/**/*",
@@ -19,8 +12,8 @@
   ],
   "exclude": [
     "node_modules",
-    "**/__tests__/**/*",
-    "**/__mocks__/**/*",
+    "__tests__/**/*",
+    "__mocks__/**/*",
     "src/helpers/jest.ts",
     "src/helpers/testHelpers.ts"
   ]

@@ -5,7 +5,7 @@ import {
   AxiosInstance, AxiosRequestConfig,
   AxiosResponse, AxiosError,
 } from 'axios';
-import { IAxiosLogger, ILoggerContext } from '../types';
+import { IAxiosLogger, LoggerContext } from '../types';
 
 declare module 'axios' {
   // tslint:disable-next-line: interface-name
@@ -17,7 +17,7 @@ declare module 'axios' {
 export class AxiosLogger implements IAxiosLogger {
   private logger: bunyan;
 
-  constructor(context: ILoggerContext) {
+  constructor(context: LoggerContext) {
     this.logger = context.logger.child({
       origin: 'Axios',
     });
@@ -52,10 +52,12 @@ export class AxiosLogger implements IAxiosLogger {
       JSON.stringify,
     );
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     const __data__ = getLog(config);
-    this.logger.info(__data__);
+    this.logger.debug(__data__);
 
+    // eslint-disable-next-line no-param-reassign
     config.__requestId__ = requestId;
     return config;
   }
@@ -74,7 +76,7 @@ export class AxiosLogger implements IAxiosLogger {
     );
 
     const __data__ = getLog(response);
-    this.logger.info(__data__);
+    this.logger.debug(__data__);
 
     return response;
   }

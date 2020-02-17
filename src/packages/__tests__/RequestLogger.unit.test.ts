@@ -1,14 +1,15 @@
 import nock from 'nock';
 import request from 'request';
 import sinon from 'sinon';
+import { promisify } from 'util';
 
 import logger from '../../logger';
 import { RequestLogger } from '../RequestLogger';
-import { ILoggerConfig } from '../../../types';
-import { promisify } from 'util';
+
+import { LoggerConfig } from '../../types';
 
 describe('Express Logger', () => {
-  const config: ILoggerConfig = {
+  const config: LoggerConfig = {
     PROJECT_NAME: 'request-logger',
     OMIT_ROUTES: ['/status', '/info'],
   };
@@ -32,6 +33,7 @@ describe('Express Logger', () => {
     });
 
     const spy = sinon.spy();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     sinon.stub(reqLogger, 'log' as any).callsFake(spy);
 
     reqLogger.attachDebug(request);

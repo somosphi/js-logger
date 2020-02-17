@@ -1,15 +1,16 @@
 import bunyan from 'bunyan';
 import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
+// eslint-disable-next-line import/no-unresolved
 import { Request, Response, NextFunction } from 'express';
 
-import { IExpressLogger, ILoggerContext, ILoggerConfig } from '../types';
+import { IExpressLogger, LoggerContext, LoggerConfig } from '../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
-  private readonly config: ILoggerConfig;
+  private readonly config: LoggerConfig;
 
-  constructor(context: ILoggerContext) {
+  constructor(context: LoggerContext) {
     this.logger = context.logger.child({
       origin: 'Express',
     });
@@ -31,6 +32,7 @@ export class ExpressLogger implements IExpressLogger {
       return;
     }
 
+    // eslint-disable-next-line prefer-destructuring
     const end = res.end;
     const requestId = uuid();
 
@@ -50,6 +52,7 @@ export class ExpressLogger implements IExpressLogger {
       localLogger.debug(__data__);
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     res.end = function _end(chunck: any, encode: string): void {

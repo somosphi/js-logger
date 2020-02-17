@@ -1,16 +1,22 @@
 import * as R from 'ramda';
 import bunyan from 'bunyan';
 import { v4 as uuid } from 'uuid';
-import { RequestAPI, Request, CoreOptions, UriOptions } from 'request';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {
+  RequestAPI,
+  Request,
+  CoreOptions,
+  UriOptions,
+} from 'request';
 import requestDebug, { LogData, LogPhase } from 'request-debug';
 
-import { ILoggerContext, IRequestLogger } from '../types';
+import { LoggerContext, IRequestLogger } from '../types';
 
 export class RequestLogger implements IRequestLogger {
   private logger: bunyan;
   private _cache: Map<number, string>;
 
-  constructor(context: ILoggerContext) {
+  constructor(context: LoggerContext) {
     this.logger = context.logger.child({
       origin: 'Request',
     });
@@ -25,6 +31,7 @@ export class RequestLogger implements IRequestLogger {
     requestDebug(requestPackage, this.treatLog);
   };
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private log = (data: object) => this.logger.info(JSON.stringify(data));
 
   private logRequest = (data: LogData): object => {
@@ -51,6 +58,7 @@ export class RequestLogger implements IRequestLogger {
     return R.mergeDeepLeft(base, data);
   };
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private parseBody = (data: LogData) => {
     let body = {};
     try {
@@ -62,12 +70,15 @@ export class RequestLogger implements IRequestLogger {
       body = R.propOr({}, 'body', data);
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     data.body = body;
   };
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private treatLog = (phase: LogPhase, data: LogData) => {
-    let treatFunc = (obj: LogData): object => ({});
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let treatFunc = (_: LogData): object => ({});
     if (phase === 'request') {
       treatFunc = this.logRequest;
     } else {

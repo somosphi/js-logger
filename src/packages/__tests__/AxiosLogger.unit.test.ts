@@ -48,7 +48,6 @@ describe('Axios Log', () => {
       expect(JSON.stringify(instance.interceptors.response)).toEqual(JSON.stringify({
         handlers: [{}],
       }));
-
     });
   });
 });
