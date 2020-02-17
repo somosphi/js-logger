@@ -8,12 +8,12 @@
   },
   "include": [
     "./src/**/*",
-    "./src/types/*"
+    "types/*"
   ],
   "exclude": [
     "node_modules",
-    "__tests__/**/*",
-    "__mocks__/**/*",
+    "**/__tests__/**/*",
+    "**/__mocks__/**/*",
     "src/helpers/jest.ts",
     "src/helpers/testHelpers.ts"
   ]

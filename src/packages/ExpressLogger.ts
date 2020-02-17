@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 // eslint-disable-next-line import/no-unresolved
 import { Request, Response, NextFunction } from 'express';
 
-import { IExpressLogger, LoggerContext, LoggerConfig } from '../types';
+import { IExpressLogger, LoggerContext, LoggerConfig } from '../../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;

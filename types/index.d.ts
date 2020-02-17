@@ -10,13 +10,6 @@ import {
   Request,
 } from 'request';
 
-declare function init(config: LoggerConfig): {
-  Logger: bunyan;
-  AxiosLogger: IAxiosLogger;
-  ExpressLogger: IExpressLogger;
-  RequestLogger: IRequestLogger;
-};
-
 declare module 'express' {
   // tslint:disable-next-line: interface-name
   interface Request {
