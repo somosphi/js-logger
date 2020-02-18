@@ -1,20 +1,19 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "lib",
     "module": "commonjs",
     "target": "es6",
+    "removeComments": true,
     "esModuleInterop": true,
-    "strict": true
+    "noImplicitAny": true,
+    "strict": true,
+    "declaration": true
   },
   "include": [
     "./src/**/*",
-    "types/*"
+    "./types/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "**/__tests__/**/*",
-    "**/__mocks__/**/*",
-    "src/helpers/jest.ts",
-    "src/helpers/testHelpers.ts"
+    "**/__tests__/**/*"
   ]
 }
