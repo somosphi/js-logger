@@ -1,6 +1,10 @@
 import bunyan from 'bunyan';
 
-import { LoggerConfig } from '../types';
+export type LoggerConfig = {
+  PROJECT_NAME: string;
+  LOG_LEVEL?: bunyan.LogLevel;
+  OMIT_ROUTES?: string[];
+};
 
 export default function logger(config: LoggerConfig): bunyan {
   return bunyan.createLogger({

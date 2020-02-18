@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import bunyan from 'bunyan';
 import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
@@ -5,7 +6,8 @@ import {
   AxiosInstance, AxiosRequestConfig,
   AxiosResponse, AxiosError,
 } from 'axios';
-import { IAxiosLogger, LoggerContext } from '../../types';
+
+import { IAxiosLogger, LoggerContext } from '../types';
 
 declare module 'axios' {
   // tslint:disable-next-line: interface-name
@@ -52,7 +54,6 @@ export class AxiosLogger implements IAxiosLogger {
       JSON.stringify,
     );
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     const __data__ = getLog(config);
     this.logger.debug(__data__);

@@ -1,12 +1,11 @@
-import * as BLogger from './logger';
+import Logger, { LoggerConfig } from './logger';
 import { AxiosLogger } from './packages/AxiosLogger';
 import { ExpressLogger } from './packages/ExpressLogger';
 import { RequestLogger } from './packages/RequestLogger';
-import { LoggerConfig, LoggerContext } from '../types';
+import { LoggerContext } from './types';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function init(config: LoggerConfig) {
-  const logger = BLogger.default(config);
+export const init = (config: LoggerConfig) => {
+  const logger = Logger(config);
   const context: LoggerContext = {
     config,
     logger,
@@ -22,4 +21,4 @@ export function init(config: LoggerConfig) {
     ExpressLogger: express,
     RequestLogger: request,
   };
-}
+};

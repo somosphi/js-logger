@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import bunyan from 'bunyan';
 import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
-// eslint-disable-next-line import/no-unresolved
 import { Request, Response, NextFunction } from 'express';
 
-import { IExpressLogger, LoggerContext, LoggerConfig } from '../../types';
+import { LoggerConfig } from '../logger';
+
+import { IExpressLogger, LoggerContext } from '../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
@@ -52,7 +54,6 @@ export class ExpressLogger implements IExpressLogger {
       localLogger.debug(__data__);
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     res.end = function _end(chunck: any, encode: string): void {

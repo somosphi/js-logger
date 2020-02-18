@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 import bunyan from 'bunyan';
 import { v4 as uuid } from 'uuid';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   RequestAPI,
   Request,
@@ -10,7 +9,7 @@ import {
 } from 'request';
 import requestDebug, { LogData, LogPhase } from 'request-debug';
 
-import { LoggerContext, IRequestLogger } from '../../types';
+import { LoggerContext, IRequestLogger } from '../types';
 
 export class RequestLogger implements IRequestLogger {
   private logger: bunyan;
@@ -31,8 +30,7 @@ export class RequestLogger implements IRequestLogger {
     requestDebug(requestPackage, this.treatLog);
   };
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  private log = (data: object) => this.logger.info(JSON.stringify(data));
+  private log = (data: object) => this.logger.debug(JSON.stringify(data));
 
   private logRequest = (data: LogData): object => {
     const reqId = uuid();
@@ -58,7 +56,6 @@ export class RequestLogger implements IRequestLogger {
     return R.mergeDeepLeft(base, data);
   };
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private parseBody = (data: LogData) => {
     let body = {};
     try {
@@ -75,7 +72,6 @@ export class RequestLogger implements IRequestLogger {
     data.body = body;
   };
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private treatLog = (phase: LogPhase, data: LogData) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let treatFunc = (_: LogData): object => ({});
