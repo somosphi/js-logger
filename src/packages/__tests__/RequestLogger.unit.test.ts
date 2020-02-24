@@ -3,10 +3,8 @@ import request from 'request';
 import sinon from 'sinon';
 import { promisify } from 'util';
 
-import logger from '../../logger';
+import logger, { LoggerConfig } from '../../logger';
 import { RequestLogger } from '../RequestLogger';
-
-import { LoggerConfig } from '../../types';
 
 describe('Express Logger', () => {
   const config: LoggerConfig = {
