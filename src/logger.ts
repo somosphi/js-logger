@@ -10,7 +10,7 @@ export type LoggerConfig = {
 export default function logger(config: LoggerConfig): bunyan {
   return bunyan.createLogger({
     name: config.PROJECT_NAME,
-    level: config.LOG_LEVEL,
+    level: config.LOG_LEVEL || 'debug',
     streams: config.STREAMS,
   });
 }

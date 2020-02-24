@@ -9,11 +9,23 @@ npm install @somosphi/logger
 ```
 
 ## Usage
-There is 3 ways to use this package, for now. This package can be:
+There is 4 ways to use this package, for now. This package can be:
 
 1. A simple logger that uses [bunyan](https://github.com/trentm/node-bunyan) as logging package.
 2. A middleware for [Express](https://github.com/expressjs/express) services, used to log all requests received by the service
-3. A interceptor for [axios](https://github.com/axios/axios) request package, logging all requests that axios executes
+3. An interceptor for [axios](https://github.com/axios/axios) request package, logging all requests that axios executes
+4. An interceptor fot [request](https://github.com/request/request) package, logging all requests that request executes
+
+### Configuration
+
+The logger configuration (`type LoggerConfig`) have this properties:
+
+|Name|Description|Type|Required|
+|----|-----------|----|--------|
+|PROJECT_NAME|The name of the project using the logger|String|true|
+|LOG_LEVEL|The level to start logging the messages|[Log Level](https://github.com/trentm/node-bunyan#levels)|false|
+|OMIT_ROUTES|Routes that the express middleware will not log|String[]|false|
+|STREAMS|Configuration for the location of the output of the log level|[Stream](https://github.com/trentm/node-bunyan#streams)|false|
 
 ### Using require
 
