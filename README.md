@@ -9,7 +9,7 @@ npm install @somosphi/logger
 ```
 
 ## Usage
-There is 4 ways to use this package, for now. This package can be:
+There are 4 ways to use this package, for now. This package can be:
 
 1. A simple logger that uses [bunyan](https://github.com/trentm/node-bunyan) as logging package.
 2. A middleware for [Express](https://github.com/expressjs/express) services, used to log all requests received by the service
