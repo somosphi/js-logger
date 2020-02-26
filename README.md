@@ -14,7 +14,7 @@ There are 4 ways to use this package, for now. This package can be:
 1. A simple logger that uses [bunyan](https://github.com/trentm/node-bunyan) as logging package.
 2. A middleware for [Express](https://github.com/expressjs/express) services, used to log all requests received by the service
 3. An interceptor for [axios](https://github.com/axios/axios) request package, logging all requests that axios executes
-4. An interceptor fot [request](https://github.com/request/request) package, logging all requests that request executes
+4. An interceptor for [request](https://github.com/request/request) package, logging all requests that request executes
 
 ### Configuration
 
