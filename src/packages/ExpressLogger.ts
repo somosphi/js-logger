@@ -82,7 +82,7 @@ export class ExpressLogger implements IExpressLogger {
         method: R.prop('method', req),
         path: R.prop('url', req),
         client_ip: '192.168.0.1',
-        'X-Forewarded-For': R.prop('X-Forewarded-For', headers),
+        'X-Forwarded-For': R.prop('X-Forwarded-For', headers),
         latency: R.prop('X-Request-Time', headers),
       });
     };
