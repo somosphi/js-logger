@@ -18,7 +18,7 @@ There are 4 ways to use this package, for now. This package can be:
 
 ### Configuration
 
-The logger configuration (`type LoggerConfig`) have this properties:
+The logger configuration (`type LoggerConfig`) has these properties:
 
 |Name|Description|Type|Required|
 |----|-----------|----|--------|
