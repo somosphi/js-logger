@@ -40,7 +40,9 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@hapi/joi": "^17.1.0",
     "@types/eslint": "^6.1.8",
+    "@types/hapi__joi": "^16.0.12",
     "@types/jest": "^24.0.18",
     "@types/sinon": "^7.5.1",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
@@ -54,9 +56,10 @@
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.4.0",
     "jest": "^25.1.0",
+    "jest-express": "^1.11.3",
     "nock": "^11.3.3",
     "sinon": "^7.4.2",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^25.2.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.6.2"
   }

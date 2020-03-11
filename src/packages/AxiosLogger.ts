@@ -45,13 +45,11 @@ export class AxiosLogger implements IAxiosLogger {
     const baseData = {
       requestId,
       type: 'Request',
-      level: 'info',
     };
     const getLog = R.pipe(
       R.clone,
       R.pick(pickData),
       R.mergeDeepLeft(baseData),
-      JSON.stringify,
     );
 
     // @ts-ignore
@@ -67,13 +65,11 @@ export class AxiosLogger implements IAxiosLogger {
     const picks: string[] = ['headers', 'data', 'status', 'statusText'];
     const baseData = {
       type: 'Response',
-      level: 'info',
     };
     const getLog = R.pipe(
       R.pick(picks),
       R.mergeDeepLeft(baseData),
       R.assoc('requestId', R.path(['config', '__requestId__'], response)),
-      JSON.stringify,
     );
 
     const __data__ = getLog(response);
@@ -83,27 +79,15 @@ export class AxiosLogger implements IAxiosLogger {
   }
 
   private logError(error: AxiosError): Promise<AxiosError> {
-    const picks: string[] = ['message', 'stack'];
-    const baseData = {
+    const logData = {
       type: 'Error',
-      level: 'error',
+      stack: R.prop('stack', error),
+      data: R.path(['response', 'data'], error),
+      requestId: R.path(['response', 'config', '__requestId__'], error),
     };
+    const msg = R.prop('message', error);
 
-    const __data__ = R.mergeDeepLeft(
-      R.pick(picks, error),
-      R.pathOr({}, ['response', 'data'], error),
-    );
-
-    const getLog = R.pipe(
-      R.mergeDeepLeft(baseData),
-      R.assoc(
-        'requestId',
-        R.path(['response', 'config', '__requestId__'], error),
-      ),
-      JSON.stringify,
-    );
-    const __err__ = getLog(__data__);
-    this.logger.error(__err__);
+    this.logger.error(logData, msg);
 
     return Promise.reject(error);
   }

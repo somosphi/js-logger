@@ -30,7 +30,7 @@ export class RequestLogger implements IRequestLogger {
     requestDebug(requestPackage, this.treatLog);
   };
 
-  private log = (data: object) => this.logger.debug(JSON.stringify(data));
+  private log = (data: object) => this.logger.debug(data);
 
   private logRequest = (data: LogData): object => {
     const reqId = uuid();

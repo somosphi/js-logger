@@ -78,10 +78,9 @@ export class ExpressLogger implements IExpressLogger {
       });
 
       localLogger.info({
-        request_id: requestId,
+        requestId,
         method: R.prop('method', req),
         path: R.prop('url', req),
-        client_ip: '192.168.0.1',
         'X-Forwarded-For': R.prop('X-Forwarded-For', headers),
         latency: R.prop('X-Request-Time', headers),
       });
