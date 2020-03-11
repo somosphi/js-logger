@@ -1,12 +1,13 @@
 import bunyan from 'bunyan';
 
-import { Logger } from '../Logger';
-import { env } from '../env';
+import logger from '../logger';
 
 describe('Logger Test', () => {
+  const log = logger({ PROJECT_NAME: 'loggerTest' });
+
   it('Should export a Bunyan instance with right name', () => {
-    expect(Logger).toBeDefined();
-    expect(Logger).toBeInstanceOf(bunyan);
-    expect(Logger).toHaveProperty('fields.name', env.PROJECT_NAME);
+    expect(log).toBeDefined();
+    expect(log).toBeInstanceOf(bunyan);
+    expect(log).toHaveProperty('fields.name', 'loggerTest');
   });
 });

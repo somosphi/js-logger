@@ -1,6 +1,16 @@
 {
-  "extends": "tslint-config-airbnb",
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-airbnb"
+  ],
   "rules": {
-    "variable-name": false
+    "variable-name": false,
+    "ordered-imports": false,
+    "no-var-requires": false,
+    "no-empty-interface": false,
+    "object-literal-sort-keys": false,
+    "member-access": false,
+    "member-ordering": false,
+    "object-shorthand-properties-first": false
   }
 }

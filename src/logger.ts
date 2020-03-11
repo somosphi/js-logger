@@ -1,7 +1,9 @@
 import bunyan from 'bunyan';
 
-import { env } from './env';
+import { ILoggerConfig } from '../types';
 
-export const Logger: bunyan = bunyan.createLogger({
-  name: env.PROJECT_NAME,
-});
+export default function logger(config: ILoggerConfig): bunyan {
+  return bunyan.createLogger({
+    name: config.PROJECT_NAME,
+  });
+}

@@ -4,10 +4,24 @@
     "module": "commonjs",
     "target": "es6",
     "removeComments": true,
-    "declaration": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "ignoreDefinitionFiles": false,
+        "configFile": "./tslint.json"
+      }
+    ]
   },
   "include": [
-    "src/**/*"
+    "./src/**/*",
+    "./types/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*",
+    "**/__mocks__/**/*"
   ]
 }

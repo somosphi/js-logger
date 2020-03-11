@@ -1,14 +1,20 @@
 import axios from 'axios';
 
-import * as AxiosLogger from '../AxiosLogger';
+import logger from '../../logger';
+import { AxiosLogger } from '../AxiosLogger';
 
 describe('Axios Log', () => {
+  const axiosLogger = new AxiosLogger({
+    logger: logger({ PROJECT_NAME: 'axios-Test' }),
+    config: { PROJECT_NAME: 'axios-test' },
+  });
+
   describe('Properties', () => {
     it('Should have the required properties', () => {
-      expect(AxiosLogger).toBeDefined();
-      expect(typeof AxiosLogger).toEqual('object');
-      expect(AxiosLogger.attachInteceptor).toBeDefined();
-      expect(typeof AxiosLogger.attachInteceptor).toEqual('function');
+      expect(axiosLogger).toBeDefined();
+      expect(typeof axiosLogger).toEqual('object');
+      expect(axiosLogger.attachInterceptor).toBeDefined();
+      expect(typeof axiosLogger.attachInterceptor).toEqual('function');
     });
   });
 
@@ -30,7 +36,7 @@ describe('Axios Log', () => {
         handlers: [],
       }));
 
-      AxiosLogger.attachInteceptor(instance);
+      axiosLogger.attachInterceptor(instance);
 
       expect(instance).toHaveProperty('interceptors.request');
       expect(instance.interceptors.request).toBeDefined();
