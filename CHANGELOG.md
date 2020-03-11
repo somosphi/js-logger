@@ -4,7 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Ongoing Changes
+## [Unreleased]
+### Changed
+- The logs are logged outside the msg property
+
+### Added
+- Accept the log level and streams that change the location of the logs based on their level
 
 ## [1.2.13]
 ### Fixed
