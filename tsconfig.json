@@ -10,10 +10,9 @@
     "declaration": true
   },
   "include": [
-    "./src/**/*",
-    "./types/**/*"
+    "src/"
   ],
   "exclude": [
-    "*/**/__tests__/*"
+    "/__tests__/*"
   ]
 }
