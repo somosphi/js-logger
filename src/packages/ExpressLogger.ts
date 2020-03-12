@@ -70,12 +70,18 @@ export class ExpressLogger implements IExpressLogger {
         body = rawBody;
       }
 
+      const msg = R.ifElse(
+        R.hasPath(['body', 'message']),
+        R.path(['body', 'message']),
+        R.prop('statusMessage'),
+      )(res);
+
       localLogger.debug({
         requestId,
         headers,
         body,
         type: 'Response',
-      });
+      }, msg);
 
       localLogger.info({
         requestId,
@@ -83,7 +89,8 @@ export class ExpressLogger implements IExpressLogger {
         path: R.prop('url', req),
         'X-Forwarded-For': R.prop('X-Forwarded-For', headers),
         latency: R.prop('X-Request-Time', headers),
-      });
+        statusCode: R.prop('statusCode', res),
+      }, msg);
     };
 
     next();
