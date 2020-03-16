@@ -1,16 +1,21 @@
 import * as R from 'ramda';
 import bunyan from 'bunyan';
 import { v4 as uuid } from 'uuid';
-import { RequestAPI, Request, CoreOptions, UriOptions } from 'request';
+import {
+  RequestAPI,
+  Request,
+  CoreOptions,
+  UriOptions,
+} from 'request';
 import requestDebug, { LogData, LogPhase } from 'request-debug';
 
-import { ILoggerContext, IRequestLogger } from '../../types';
+import { LoggerContext, IRequestLogger } from '../types';
 
 export class RequestLogger implements IRequestLogger {
   private logger: bunyan;
   private _cache: Map<number, string>;
 
-  constructor(context: ILoggerContext) {
+  constructor(context: LoggerContext) {
     this.logger = context.logger.child({
       origin: 'Request',
     });
@@ -23,9 +28,9 @@ export class RequestLogger implements IRequestLogger {
    */
   attachDebug = (requestPackage: RequestAPI<Request, CoreOptions, UriOptions>): void => {
     requestDebug(requestPackage, this.treatLog);
-  }
+  };
 
-  private log = (data: object) => this.logger.info(JSON.stringify(data));
+  private log = (data: object) => this.logger.debug(JSON.stringify(data));
 
   private logRequest = (data: LogData): object => {
     const reqId = uuid();
@@ -37,7 +42,7 @@ export class RequestLogger implements IRequestLogger {
     };
 
     return R.mergeDeepLeft(base, data);
-  }
+  };
 
   private logResponse = (data: LogData): object => {
     const reqId = this._cache.get(data.debugId);
@@ -49,7 +54,7 @@ export class RequestLogger implements IRequestLogger {
     };
 
     return R.mergeDeepLeft(base, data);
-  }
+  };
 
   private parseBody = (data: LogData) => {
     let body = {};
@@ -62,12 +67,14 @@ export class RequestLogger implements IRequestLogger {
       body = R.propOr({}, 'body', data);
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     data.body = body;
-  }
+  };
 
   private treatLog = (phase: LogPhase, data: LogData) => {
-    let treatFunc = (obj: LogData): object => ({});
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let treatFunc = (_: LogData): object => ({});
     if (phase === 'request') {
       treatFunc = this.logRequest;
     } else {
@@ -80,5 +87,5 @@ export class RequestLogger implements IRequestLogger {
       R.omit(['debugId']),
       this.log,
     )(data);
-  }
+  };
 }

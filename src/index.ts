@@ -1,16 +1,12 @@
-import bunyan from 'bunyan';
-import * as BLogger from './Logger';
+import Logger, { LoggerConfig } from './logger';
 import { AxiosLogger } from './packages/AxiosLogger';
 import { ExpressLogger } from './packages/ExpressLogger';
 import { RequestLogger } from './packages/RequestLogger';
-import {
-  ILoggerContext,
-  ILoggerConfig,
-} from '../types';
+import { LoggerContext } from './types';
 
-export function init(config: ILoggerConfig) {
-  const logger: bunyan = BLogger.default(config);
-  const context: ILoggerContext = {
+export const init = (config: LoggerConfig) => {
+  const logger = Logger(config);
+  const context: LoggerContext = {
     config,
     logger,
   };
@@ -25,4 +21,4 @@ export function init(config: ILoggerConfig) {
     ExpressLogger: express,
     RequestLogger: request,
   };
-}
+};

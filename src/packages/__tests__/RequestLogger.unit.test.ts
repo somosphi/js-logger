@@ -1,22 +1,21 @@
 import nock from 'nock';
 import request from 'request';
 import sinon from 'sinon';
-
-import logger from '../../logger';
-import { RequestLogger } from '../RequestLogger';
-import { ILoggerConfig } from '../../../types';
 import { promisify } from 'util';
 
+import logger, { LoggerConfig } from '../../logger';
+import { RequestLogger } from '../RequestLogger';
+
 describe('Express Logger', () => {
-  const config: ILoggerConfig = {
+  const config: LoggerConfig = {
     PROJECT_NAME: 'request-logger',
     OMIT_ROUTES: ['/status', '/info'],
   };
 
   it('has all required properties', () => {
     const reqLogger = new RequestLogger({
-      logger: logger(config),
       config,
+      logger: logger(config),
     });
 
     expect(reqLogger).toBeDefined();
@@ -27,11 +26,12 @@ describe('Express Logger', () => {
 
   it('can log with the right format', async () => {
     const reqLogger = new RequestLogger({
-      logger: logger(config),
       config,
+      logger: logger(config),
     });
 
     const spy = sinon.spy();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     sinon.stub(reqLogger, 'log' as any).callsFake(spy);
 
     reqLogger.attachDebug(request);

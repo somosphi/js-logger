@@ -1,31 +1,25 @@
 import bunyan from 'bunyan';
 import { Request as ERequest, Response, NextFunction } from 'express';
-import { AxiosStatic, AxiosInstance } from 'axios';
-import { RequestAPI, CoreOptions, UriOptions, Request } from 'request';
+import { AxiosInstance } from 'axios';
+import {
+  RequestAPI,
+  CoreOptions,
+  UriOptions,
+  Request,
+} from 'request';
 
-declare function init(config: ILoggerConfig): {
-  Logger: bunyan;
-  AxiosLogger: IAxiosLogger;
-  ExpressLogger: IExpressLogger;
-  RequestLogger: IRequestLogger;
-};
+import { LoggerConfig } from '../logger';
 
 declare module 'express' {
-  // tslint:disable-next-line: interface-name
   interface Request {
     __requestId__?: string;
   }
 }
 
-export interface ILoggerConfig {
-  PROJECT_NAME: string;
-  OMIT_ROUTES?: string[];
-}
-
-export interface ILoggerContext {
+export type LoggerContext = {
   logger: bunyan;
-  config: ILoggerConfig;
-}
+  config: LoggerConfig;
+};
 
 export interface IExpressLogger {
   onSuccess(req: ERequest, res: Response, next: NextFunction): void;

@@ -2,10 +2,11 @@
 log
 *.log
 npm-debug.log*
-.vscode
+.vscode/*.log
 
 # Build
 lib
+dist
 
 # Runtime data
 pids

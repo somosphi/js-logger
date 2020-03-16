@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import bunyan from 'bunyan';
 import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
 import { Request, Response, NextFunction } from 'express';
 
-import { IExpressLogger, ILoggerContext, ILoggerConfig } from '../../types';
+import { LoggerConfig } from '../logger';
+
+import { IExpressLogger, LoggerContext } from '../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
-  private readonly config: ILoggerConfig;
+  private readonly config: LoggerConfig;
 
-  constructor(context: ILoggerContext) {
+  constructor(context: LoggerContext) {
     this.logger = context.logger.child({
       origin: 'Express',
     });
@@ -31,6 +34,7 @@ export class ExpressLogger implements IExpressLogger {
       return;
     }
 
+    // eslint-disable-next-line prefer-destructuring
     const end = res.end;
     const requestId = uuid();
 
@@ -45,10 +49,9 @@ export class ExpressLogger implements IExpressLogger {
       const __data__ = R.pipe(
         R.pick(pickReq),
         R.mergeDeepLeft(baseData),
-        JSON.stringify,
       )(req);
 
-      this.logger.info(__data__);
+      localLogger.debug(__data__);
     }
 
     // @ts-ignore
@@ -67,12 +70,21 @@ export class ExpressLogger implements IExpressLogger {
         body = rawBody;
       }
 
-      localLogger.info(JSON.stringify({
+      localLogger.debug({
         requestId,
         headers,
         body,
         type: 'Response',
-      }));
+      });
+
+      localLogger.info({
+        request_id: requestId,
+        method: R.prop('method', req),
+        path: R.prop('url', req),
+        client_ip: '192.168.0.1',
+        'X-Forwarded-For': R.prop('X-Forwarded-For', headers),
+        latency: R.prop('X-Request-Time', headers),
+      });
     };
 
     next();
