@@ -19,221 +19,235 @@ describe('Express Logger', () => {
 
   describe('properties', () => {
     it('has the required properties', () => {
-      expect(expressLogger).toBeDefined();
-      expect(typeof expressLogger).toEqual('object');
-      expect(expressLogger.onSuccess).toBeDefined();
-      expect(typeof expressLogger.onSuccess).toEqual('function');
-      expect(expressLogger.onError).toBeDefined();
-      expect(typeof expressLogger.onError).toEqual('function');
+      expect(expressLogger).toBeInstanceOf(Object);
+      expect(expressLogger.onSuccess).toBeInstanceOf(Function);
+      expect(expressLogger.onError).toBeInstanceOf(Function);
     });
   });
 
   describe('usage', () => {
-    it('attaches the middlewares', () => {
-      const app = express();
+    it('logs the request and response - without latency', () => {
+      const eLogger = new ExpressLogger({
+        logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        config: {
+          PROJECT_NAME: 'express-test',
+        },
+      });
 
-      app.use(expressLogger.onSuccess);
-      app.use(expressLogger.onError);
+      const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
 
-      const { stack } = app._router;
-      expect(stack).toHaveLength(4);
-      expect(stack[2]).toHaveProperty('name', 'onSuccess');
-      expect(stack[3]).toHaveProperty('name', 'onError');
-    });
-  });
+      const req = new Request();
+      const res = {
+        end: jest.fn(),
+        getHeaders: () => ({
+          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
+        }),
+      };
 
-  it('logs the request and response - without latency', () => {
-    const eLogger = new ExpressLogger({
-      logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
-      config: {
-        PROJECT_NAME: 'express-test',
-        OMIT_ROUTES: ['/status', '/info'],
-      },
-    });
-
-    const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
-
-    const req = new Request();
-    const res = {
-      end: jest.fn(),
-      getHeaders: () => ({
-        'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
-      }),
-    };
-
-    req.setBody({
-      som: 'data',
-    });
-    req.setMethod('POST');
-    // @ts-ignore
-    req.url = '/v1/suupppp';
-
-    eLogger.onSuccess(
+      req.setBody({
+        som: 'data',
+      });
+      req.setMethod('POST');
       // @ts-ignore
-      req,
-      res,
-      jest.fn(),
-    );
-    res.end();
+      req.url = '/v1/suupppp';
 
-    expect(infoSpy).toHaveBeenCalledTimes(1);
-    const infoCall = infoSpy.mock.calls[0][0];
-    expect(infoCall).toMatchSchema(joi.object({
-      requestId: joi.string().guid({ version: 'uuidv4' }).required(),
-      method: joi.string().valid('POST').required(),
-      path: joi.string().valid('/v1/suupppp').required(),
-      'X-Forwarded-For': joi.array()
-        .items(
-          joi.string()
-            .valid('192.168.0.1', '127.0.0.1')
-            .required(),
-        ).required()
-        .length(2),
-    }));
-  });
+      eLogger.onSuccess(
+        // @ts-ignore
+        req,
+        res,
+        jest.fn(),
+      );
+      res.end();
 
-  it('logs the request and response - with latency', () => {
-    const eLogger = new ExpressLogger({
-      logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
-      config: {
-        PROJECT_NAME: 'express-test',
-        OMIT_ROUTES: ['/status', '/info'],
-      },
+      expect(infoSpy).toHaveBeenCalledTimes(1);
+      const infoCall = infoSpy.mock.calls[0][0];
+      expect(infoCall).toMatchSchema(joi.object({
+        requestId: joi.string().guid({ version: 'uuidv4' }).required(),
+        method: joi.string().valid('POST').required(),
+        path: joi.string().valid('/v1/suupppp').required(),
+        'X-Forwarded-For': joi.array()
+          .items(
+            joi.string()
+              .valid('192.168.0.1', '127.0.0.1')
+              .required(),
+          ).required()
+          .length(2),
+      }));
     });
 
-    const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
+    it('logs the request and response - with latency', () => {
+      const eLogger = new ExpressLogger({
+        logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        config: {
+          PROJECT_NAME: 'express-test',
+          OMIT_ROUTES: ['/status', '/info'],
+        },
+      });
 
-    const req = new Request();
-    const res = {
-      end: jest.fn(),
-      getHeaders: () => ({
-        'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
-        'X-Request-Time': 1.2323232,
-      }),
-    };
+      const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
 
-    req.setBody({
-      som: 'data',
-    });
-    req.setMethod('POST');
-    // @ts-ignore
-    req.url = '/v1/suupppp';
+      const req = new Request();
+      const res = {
+        end: jest.fn(),
+        getHeaders: () => ({
+          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
+          'X-Request-Time': 1.2323232,
+        }),
+      };
 
-    eLogger.onSuccess(
+      req.setBody({
+        som: 'data',
+      });
+      req.setMethod('POST');
       // @ts-ignore
-      req,
-      res,
-      jest.fn(),
-    );
-    res.end();
+      req.url = '/v1/suupppp';
 
-    expect(infoSpy).toHaveBeenCalledTimes(1);
-    const infoCall = infoSpy.mock.calls[0][0];
-    expect(infoCall).toMatchSchema(joi.object({
-      requestId: joi.string().guid({ version: 'uuidv4' }).required(),
-      method: joi.string().valid('POST').required(),
-      path: joi.string().valid('/v1/suupppp').required(),
-      'X-Forwarded-For': joi.array()
-        .items(
-          joi.string()
-            .valid('192.168.0.1', '127.0.0.1')
-            .required(),
-        ).required()
-        .length(2),
-      latency: joi.number().valid(1.2323232).required(),
-    }));
-  });
+      eLogger.onSuccess(
+        // @ts-ignore
+        req,
+        res,
+        jest.fn(),
+      );
+      res.end();
 
-  it('logs the error', () => {
-    const eLogger = new ExpressLogger({
-      logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
-      config: {
-        PROJECT_NAME: 'express-test',
-        OMIT_ROUTES: ['/status', '/info'],
-      },
+      expect(infoSpy).toHaveBeenCalledTimes(1);
+      const infoCall = infoSpy.mock.calls[0][0];
+      expect(infoCall).toMatchSchema(joi.object({
+        requestId: joi.string().guid({ version: 'uuidv4' }).required(),
+        method: joi.string().valid('POST').required(),
+        path: joi.string().valid('/v1/suupppp').required(),
+        'X-Forwarded-For': joi.array()
+          .items(
+            joi.string()
+              .valid('192.168.0.1', '127.0.0.1')
+              .required(),
+          ).required()
+          .length(2),
+        latency: joi.number().valid(1.2323232).required(),
+      }));
     });
 
-    const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
+    it('logs the error', () => {
+      const eLogger = new ExpressLogger({
+        logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        config: {
+          PROJECT_NAME: 'express-test',
+          OMIT_ROUTES: ['/status', '/info'],
+        },
+      });
 
-    const req = new Request();
-    const res = {
-      end: jest.fn(),
-      getHeaders: () => ({
-        'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
-        'X-Request-Time': 1.2323232,
-      }),
-    };
+      const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
 
-    req.setBody({
-      som: 'data',
-    });
-    req.setMethod('POST');
-    // @ts-ignore
-    req.url = '/v1/suupppp';
+      const req = new Request();
+      const res = {
+        end: jest.fn(),
+        getHeaders: () => ({
+          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
+          'X-Request-Time': 1.2323232,
+        }),
+      };
 
-    eLogger.onError(
-      new Error('some err'),
+      req.setBody({
+        som: 'data',
+      });
+      req.setMethod('POST');
       // @ts-ignore
-      req,
-      res,
-      jest.fn(),
-    );
-    res.end();
+      req.url = '/v1/suupppp';
 
-    expect(infoSpy).toHaveBeenCalledTimes(0);
-  });
+      eLogger.onError(
+        new Error('some err'),
+        // @ts-ignore
+        req,
+        res,
+        jest.fn(),
+      );
+      res.end();
 
-
-  it('logs the request and response (DEBUG LEVEL)', () => {
-    const eLogger = new ExpressLogger({
-      logger: logger({ PROJECT_NAME: 'express-logger' }),
-      config: {
-        PROJECT_NAME: 'express-test',
-        OMIT_ROUTES: ['/status', '/info'],
-      },
+      expect(infoSpy).toHaveBeenCalledTimes(0);
     });
 
-    const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
-    const debugSpy = jest.spyOn(require('bunyan').prototype, 'debug');
 
-    const req = new Request();
-    const res = {
-      end: jest.fn(),
-      getHeaders: () => ({
-        'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
-      }),
-    };
+    it('logs the request and response (DEBUG LEVEL)', () => {
+      const eLogger = new ExpressLogger({
+        logger: logger({ PROJECT_NAME: 'express-logger' }),
+        config: {
+          PROJECT_NAME: 'express-test',
+          OMIT_ROUTES: ['/status', '/info'],
+        },
+      });
 
-    req.setBody({
-      som: 'data',
-    });
-    req.setMethod('POST');
-    // @ts-ignore
-    req.url = '/v1/suupppp';
+      const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
+      const debugSpy = jest.spyOn(require('bunyan').prototype, 'debug');
 
-    eLogger.onSuccess(
+      const req = new Request();
+      const res = {
+        end: jest.fn(),
+        getHeaders: () => ({
+          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
+        }),
+      };
+
+      req.setBody({
+        som: 'data',
+      });
+      req.setMethod('POST');
       // @ts-ignore
-      req,
-      res,
-      jest.fn(),
-    );
-    res.end();
+      req.url = '/v1/suupppp';
 
-    expect(infoSpy).toHaveBeenCalledTimes(1);
-    const infoCall = infoSpy.mock.calls[0][0];
-    expect(infoCall).toMatchSchema(joi.object({
-      requestId: joi.string().guid({ version: 'uuidv4' }).required(),
-      method: joi.string().valid('POST').required(),
-      path: joi.string().valid('/v1/suupppp').required(),
-      'X-Forwarded-For': joi.array()
-        .items(
-          joi.string()
-            .valid('192.168.0.1', '127.0.0.1')
-            .required(),
-        ).required()
-        .length(2),
-    }));
+      eLogger.onSuccess(
+        // @ts-ignore
+        req,
+        res,
+        jest.fn(),
+      );
+      res.end();
 
-    expect(debugSpy).toHaveBeenCalledTimes(2);
+      expect(infoSpy).toHaveBeenCalledTimes(1);
+      const infoCall = infoSpy.mock.calls[0][0];
+      expect(infoCall).toMatchSchema(joi.object({
+        requestId: joi.string().guid({ version: 'uuidv4' }).required(),
+        method: joi.string().valid('POST').required(),
+        path: joi.string().valid('/v1/suupppp').required(),
+        'X-Forwarded-For': joi.array()
+          .items(
+            joi.string()
+              .valid('192.168.0.1', '127.0.0.1')
+              .required(),
+          ).required()
+          .length(2),
+      }));
+
+      expect(debugSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it('doesnt log if it has the OMIT_ROUTES config', () => {
+      const eLogger = new ExpressLogger({
+        logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        config: {
+          PROJECT_NAME: 'express-test',
+          OMIT_ROUTES: ['/status', '/info'],
+        },
+      });
+
+      const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
+
+      const req = new Request();
+      const res = {
+        end: jest.fn(),
+      };
+
+      // @ts-ignore
+      req.url = '/status';
+
+      eLogger.onSuccess(
+        // @ts-ignore
+        req,
+        res,
+        jest.fn(),
+      );
+      res.end();
+
+      expect(infoSpy).toHaveBeenCalledTimes(0);
+    });
   });
 });
