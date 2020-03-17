@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable global-require */
 import joi from '@hapi/joi';
-import express from 'express';
 import { Request } from 'jest-express/lib/request';
 
 import logger from '../../logger';
