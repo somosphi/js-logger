@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "lib",
+    "outDir": "./lib",
     "module": "commonjs",
     "target": "es6",
     "removeComments": true,
@@ -10,10 +10,9 @@
     "declaration": true
   },
   "include": [
-    "./src/**/*",
-    "./types/**/*"
+    "src/"
   ],
   "exclude": [
-    "/__tests__/**/*"
+    "/__tests__/*"
   ]
 }
