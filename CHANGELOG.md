@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+## [1.3.2]
+### Fixed
+- Some properties didn't had the right type and now they have because it is using import instead of referencing some imported package
 
 ## [1.3.1]
 ### Fixed
