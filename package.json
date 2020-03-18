@@ -4,10 +4,9 @@
   "description": "A package to include request/response logging inside services",
   "main": "lib/index.js",
   "files": [
-    "lib",
-    "types"
+    "lib"
   ],
-  "types": "types/index.d.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "rm -rf lib && tsc",
     "test": "jest \\.test\\.ts",
