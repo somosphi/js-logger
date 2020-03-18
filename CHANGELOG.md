@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [1.3.1]
+### Fixed
+- Fix the build of the package when install inside some project
+
 ## [1.3.0]
 ### Changed
 - The logs are logged outside the msg property
