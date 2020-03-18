@@ -10,10 +10,12 @@
     "declaration": true
   },
   "include": [
-    "src/**/*",
+    "src/**/*.ts",
     "types"
   ],
   "exclude": [
-    "/__tests__/*"
+    "/__tests__/*",
+    "dist",
+    "node_modules"
   ]
 }
