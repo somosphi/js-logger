@@ -63,6 +63,16 @@ export class ExpressLogger implements IExpressLogger {
       const rawBody = String(chunck);
       const headers = res.getHeaders();
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let remote: any = req.ip;
+      if (headers['CF-Connecting-IP']) {
+        remote = headers['CF-Connecting-IP'];
+      } else if (headers['True-Client-IP']) {
+        remote = headers['True-Client-IP'];
+      } else if (headers['X-Forwarded-For']) {
+        remote = headers['X-Forwarded-For'];
+      }
+
       let body;
       try {
         body = JSON.parse(rawBody);
@@ -87,7 +97,7 @@ export class ExpressLogger implements IExpressLogger {
         requestId,
         method: R.prop('method', req),
         path: R.prop('url', req),
-        'X-Forwarded-For': R.prop('X-Forwarded-For', headers),
+        'X-Forwarded-For': remote || null,
         latency: R.prop('X-Request-Time', headers),
         statusCode: R.prop('statusCode', res),
       }, msg);
