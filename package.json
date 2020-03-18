@@ -6,7 +6,7 @@
   "files": [
     "lib"
   ],
-  "types": "src/types",
+  "types": "lib/**/*.d.ts",
   "scripts": {
     "build": "rm -rf lib && tsc",
     "test": "jest \\.test\\.ts",
