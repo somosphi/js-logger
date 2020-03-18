@@ -1,15 +1,15 @@
 {
   "name": "@somosphi/logger",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A package to include request/response logging inside services",
   "main": "lib/index.js",
-  "types": "src/types",
   "files": [
     "lib"
   ],
+  "types": "src/types",
   "scripts": {
     "build": "rm -rf lib && tsc",
-    "test": "jest --runInBand \\.test\\.ts",
+    "test": "jest \\.test\\.ts",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
   },
   "repository": {
