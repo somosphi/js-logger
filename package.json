@@ -4,7 +4,8 @@
   "description": "A package to include request/response logging inside services",
   "main": "lib/index.js",
   "files": [
-    "lib"
+    "lib",
+    "types"
   ],
   "types": "types/index.d.ts",
   "scripts": {
