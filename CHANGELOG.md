@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Accept the log level and streams that change the location of the logs based on their level
+- Add check for ip header from CloudFlare
 
 ## [1.2.13]
 ### Fixed
