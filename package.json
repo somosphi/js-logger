@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "src/types",
   "files": [
-    "lib"
+    "lib/"
   ],
   "scripts": {
     "build": "rm -rf lib && tsc",
