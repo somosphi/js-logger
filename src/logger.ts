@@ -1,4 +1,3 @@
-/// <reference types="bunyan" />
 import bunyan from 'bunyan';
 
 export type LoggerConfig = {
