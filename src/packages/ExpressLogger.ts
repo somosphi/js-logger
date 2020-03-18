@@ -6,7 +6,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { LoggerConfig } from '../logger';
 
-import { IExpressLogger, LoggerContext } from '../types';
+import { IExpressLogger, LoggerContext } from '../../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;

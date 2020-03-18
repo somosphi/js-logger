@@ -14,7 +14,7 @@ import {
   Request,
 } from 'request';
 
-import { LoggerConfig } from '../logger';
+import { LoggerConfig } from '../src/logger';
 
 declare global {
   // eslint-disable-next-line no-redeclare

@@ -7,7 +7,7 @@ export type LoggerConfig = {
   STREAMS?: bunyan.Stream[];
 };
 
-export default function logger(config: LoggerConfig): bunyan {
+export function logger(config: LoggerConfig): import('bunyan') {
   return bunyan.createLogger({
     name: config.PROJECT_NAME,
     level: config.LOG_LEVEL || 'debug',

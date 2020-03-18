@@ -1,6 +1,6 @@
 import bunyan from 'bunyan';
 
-import logger from '../logger';
+import { logger } from '../logger';
 
 describe('Logger Test', () => {
   const log = logger({ PROJECT_NAME: 'loggerTest' });

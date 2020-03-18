@@ -1,8 +1,8 @@
-import Logger, { LoggerConfig } from './logger';
+import { logger as Logger, LoggerConfig } from './logger';
 import { AxiosLogger } from './packages/AxiosLogger';
 import { ExpressLogger } from './packages/ExpressLogger';
 import { RequestLogger } from './packages/RequestLogger';
-import { LoggerContext } from './types';
+import { LoggerContext } from '../types';
 
 export const init = (config: LoggerConfig) => {
   const logger = Logger(config);
