@@ -7,7 +7,7 @@ import {
   AxiosResponse, AxiosError,
 } from 'axios';
 
-import { IAxiosLogger, LoggerContext } from '../types';
+import { IAxiosLogger, LoggerContext, RedactClass } from '../types';
 
 declare module 'axios' {
   // tslint:disable-next-line: interface-name
@@ -18,8 +18,10 @@ declare module 'axios' {
 
 export class AxiosLogger implements IAxiosLogger {
   private logger: bunyan;
+  private redact: RedactClass;
 
   constructor(context: LoggerContext) {
+    this.redact = context.redact;
     this.logger = context.logger.child({
       origin: 'Axios',
     });
@@ -53,7 +55,7 @@ export class AxiosLogger implements IAxiosLogger {
     );
 
     // @ts-ignore
-    const __data__ = getLog(config);
+    const __data__ = this.redact.map(getLog(config));
     this.logger.debug(__data__);
 
     // eslint-disable-next-line no-param-reassign
@@ -72,22 +74,22 @@ export class AxiosLogger implements IAxiosLogger {
       R.assoc('requestId', R.path(['config', '__requestId__'], response)),
     );
 
-    const __data__ = getLog(response);
+    const __data__ = this.redact.map(getLog(response));
     this.logger.debug(__data__);
 
     return response;
   }
 
   private logError(error: AxiosError): Promise<AxiosError> {
-    const logData = {
+    const logData = this.redact.map({
       type: 'Error',
       stack: R.prop('stack', error),
       data: R.path(['response', 'data'], error),
       requestId: R.path(['response', 'config', '__requestId__'], error),
-    };
+    });
     const msg = R.prop('message', error);
 
-    this.logger.error(logData, msg);
+    this.logger.error(logData, this.redact.map(msg));
 
     return Promise.reject(error);
   }

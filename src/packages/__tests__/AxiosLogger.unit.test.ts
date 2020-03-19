@@ -6,10 +6,12 @@ import axios from 'axios';
 
 import logger from '../../logger';
 import { AxiosLogger } from '../AxiosLogger';
+import Redact from '../Redact';
 
 describe('Axios Log', () => {
   const axiosLogger = new AxiosLogger({
     logger: logger({ PROJECT_NAME: 'axios-Test' }),
+    redact: new Redact(),
     config: {
       PROJECT_NAME: 'axios-test',
     },

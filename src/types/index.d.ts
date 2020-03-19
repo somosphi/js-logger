@@ -38,6 +38,7 @@ declare module 'express' {
 export type LoggerContext = {
   logger: bunyan;
   config: LoggerConfig;
+  redact: RedactClass;
 };
 
 export interface IExpressLogger {
@@ -51,4 +52,12 @@ export interface IAxiosLogger {
 
 export interface IRequestLogger {
   attachDebug(requestPackage: RequestAPI<Request, CoreOptions, UriOptions>): void;
+}
+
+export interface RedactClass {
+  key(str: string): boolean;
+  value(str: string): boolean;
+  map(obj: unknown): unknown;
+  addKey(key: RegExp): void;
+  addValue(value: RegExp): void;
 }
