@@ -182,9 +182,25 @@ RequestLogger.attachDebug.bind(RequestLogger)(request);
 
 ```javascript
 import { init } from '@somosphi/logger';
-```
 
-#### Redact Class
+const {
+  RequestLogger,
+  Redact,
+} = init({
+  PROJECT_NAME: 'project-name',
+});
 
-```javascript
+RequestLogger.info(Redact.map({
+  'password': 'secret',
+}));
+
+RequestLogger.info(Redact.map({
+  'code': 'secret',
+}));
+
+Redact.addKey(/code/i);
+
+RequestLogger.info(Redact.map({
+  'code': 'secret',
+}));
 ```
