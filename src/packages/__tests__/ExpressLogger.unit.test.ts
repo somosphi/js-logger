@@ -5,11 +5,13 @@ import { Request } from 'jest-express/lib/request';
 
 import { logger } from '../../logger';
 import { ExpressLogger } from '../ExpressLogger';
+import Redact from '../Redact';
 
 
 describe('Express Logger', () => {
   const expressLogger = new ExpressLogger({
     logger: logger({ PROJECT_NAME: 'express-logger' }),
+    redact: new Redact(),
     config: {
       PROJECT_NAME: 'express-test',
       OMIT_ROUTES: ['/status', '/info'],
@@ -28,6 +30,7 @@ describe('Express Logger', () => {
     it('logs the request and response - without latency', () => {
       const eLogger = new ExpressLogger({
         logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        redact: new Redact(),
         config: {
           PROJECT_NAME: 'express-test',
         },
@@ -77,6 +80,7 @@ describe('Express Logger', () => {
     it('logs the request and response - with latency', () => {
       const eLogger = new ExpressLogger({
         logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        redact: new Redact(),
         config: {
           PROJECT_NAME: 'express-test',
           OMIT_ROUTES: ['/status', '/info'],
@@ -129,6 +133,7 @@ describe('Express Logger', () => {
     it('logs the error', () => {
       const eLogger = new ExpressLogger({
         logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        redact: new Redact(),
         config: {
           PROJECT_NAME: 'express-test',
           OMIT_ROUTES: ['/status', '/info'],
@@ -169,6 +174,7 @@ describe('Express Logger', () => {
     it('logs the request and response (DEBUG LEVEL)', () => {
       const eLogger = new ExpressLogger({
         logger: logger({ PROJECT_NAME: 'express-logger' }),
+        redact: new Redact(),
         config: {
           PROJECT_NAME: 'express-test',
           OMIT_ROUTES: ['/status', '/info'],
@@ -222,6 +228,7 @@ describe('Express Logger', () => {
     it('doesnt log if it has the OMIT_ROUTES config', () => {
       const eLogger = new ExpressLogger({
         logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        redact: new Redact(),
         config: {
           PROJECT_NAME: 'express-test',
           OMIT_ROUTES: ['/status', '/info'],

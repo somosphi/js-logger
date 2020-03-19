@@ -177,3 +177,30 @@ RequestLogger.attachDebug.bind(RequestLogger)(request);
 {"name":"project-name","hostname":"hostname.local","pid":24654,"level":30,"msg":"{\"origin\":\"Request\",\"requrestId\":\"77215bf8-f821-4faf-bcc1-2c0260eafc66\",\"type\":\"Request or Response\",\"headers\":{\"data\":\"all headers\"},\"body\":{\"data\":\"all body\"},\"method\":\"HTTP Method\",\"url\":\"https://somosphi.com\",\"data\":{\"data\":\"all data from axios\"},\"params\":{\"data\":\"params used\"},\"status\":200,\"statusText\":\"OK\"}","time":"2019-09-10T00:53:40.767Z","v":0}
 */
 ```
+
+#### Redact Logger
+
+```javascript
+import { init } from '@somosphi/logger';
+
+const {
+  RequestLogger,
+  Redact,
+} = init({
+  PROJECT_NAME: 'project-name',
+});
+
+RequestLogger.info(Redact.map({
+  'password': 'secret',
+}));
+
+RequestLogger.info(Redact.map({
+  'code': 'secret',
+}));
+
+Redact.addKey(/code/i);
+
+RequestLogger.info(Redact.map({
+  'code': 'secret',
+}));
+```

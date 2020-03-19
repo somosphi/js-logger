@@ -5,6 +5,7 @@ export type LoggerConfig = {
   LOG_LEVEL?: bunyan.LogLevel;
   OMIT_ROUTES?: string[];
   STREAMS?: bunyan.Stream[];
+  REDACTED?: string;
 };
 
 export function logger(config: LoggerConfig): import('bunyan') {

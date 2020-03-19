@@ -5,6 +5,7 @@ import { promisify } from 'util';
 
 import { logger, LoggerConfig } from '../../logger';
 import { RequestLogger } from '../RequestLogger';
+import Redact from '../Redact';
 
 describe('Express Logger', () => {
   const config: LoggerConfig = {
@@ -16,6 +17,7 @@ describe('Express Logger', () => {
     const reqLogger = new RequestLogger({
       config,
       logger: logger(config),
+      redact: new Redact(),
     });
 
     expect(reqLogger).toBeDefined();
@@ -28,6 +30,7 @@ describe('Express Logger', () => {
     const reqLogger = new RequestLogger({
       config,
       logger: logger(config),
+      redact: new Redact(),
     });
 
     const spy = sinon.spy();

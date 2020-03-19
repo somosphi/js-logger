@@ -6,13 +6,15 @@ import { Request, Response, NextFunction } from 'express';
 
 import { LoggerConfig } from '../logger';
 
-import { IExpressLogger, LoggerContext } from '../../types';
+import { IExpressLogger, LoggerContext, RedactClass } from '../../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
   private readonly config: LoggerConfig;
+  private redact: RedactClass;
 
   constructor(context: LoggerContext) {
+    this.redact = context.redact;
     this.logger = context.logger.child({
       origin: 'Express',
     });
@@ -27,6 +29,7 @@ export class ExpressLogger implements IExpressLogger {
    */
   onSuccess(req: Request, res: Response, next: NextFunction): void {
     const localLogger = this.logger;
+    const localRedact = this.redact;
     const omitRoutes = this.config.OMIT_ROUTES || [];
 
     if (omitRoutes.includes(req.url)) {
@@ -51,7 +54,7 @@ export class ExpressLogger implements IExpressLogger {
         R.mergeDeepLeft(baseData),
       )(req);
 
-      localLogger.debug(__data__);
+      localLogger.debug(localRedact.map(__data__));
     }
 
     // @ts-ignore
@@ -86,21 +89,21 @@ export class ExpressLogger implements IExpressLogger {
         R.prop('statusMessage'),
       )(res);
 
-      localLogger.debug({
+      localLogger.debug(localRedact.map({
         requestId,
         headers,
         body,
         type: 'Response',
-      }, msg);
+      }), localRedact.map(msg));
 
-      localLogger.info({
+      localLogger.info(localRedact.map({
         requestId,
         method: R.prop('method', req),
         path: R.prop('url', req),
         'X-Forwarded-For': remote || null,
         latency: R.prop('X-Request-Time', headers),
         statusCode: R.prop('statusCode', res),
-      }, msg);
+      }), localRedact.map(msg));
     };
 
     next();

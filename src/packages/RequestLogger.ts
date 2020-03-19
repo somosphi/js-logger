@@ -9,13 +9,15 @@ import {
 } from 'request';
 import requestDebug, { LogData, LogPhase } from 'request-debug';
 
-import { LoggerContext, IRequestLogger } from '../../types';
+import { LoggerContext, IRequestLogger, RedactClass } from '../../types';
 
 export class RequestLogger implements IRequestLogger {
   private logger: bunyan;
+  private redact: RedactClass;
   private _cache: Map<number, string>;
 
   constructor(context: LoggerContext) {
+    this.redact = context.redact;
     this.logger = context.logger.child({
       origin: 'Request',
     });
@@ -30,7 +32,7 @@ export class RequestLogger implements IRequestLogger {
     requestDebug(requestPackage, this.treatLog);
   };
 
-  private log = (data: object) => this.logger.debug(data);
+  private log = (data: object) => this.logger.debug(this.redact.map(data));
 
   private logRequest = (data: LogData): object => {
     const reqId = uuid();
