@@ -1,5 +1,5 @@
 import traverse from 'traverse';
-import { RedactClass } from '../types';
+import { RedactClass } from '../../types';
 
 const KEYS = [
   // generic

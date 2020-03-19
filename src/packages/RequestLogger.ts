@@ -9,7 +9,7 @@ import {
 } from 'request';
 import requestDebug, { LogData, LogPhase } from 'request-debug';
 
-import { LoggerContext, IRequestLogger, RedactClass } from '../types';
+import { LoggerContext, IRequestLogger, RedactClass } from '../../types';
 
 export class RequestLogger implements IRequestLogger {
   private logger: bunyan;

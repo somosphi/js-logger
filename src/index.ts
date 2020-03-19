@@ -3,7 +3,7 @@ import { AxiosLogger } from './packages/AxiosLogger';
 import { ExpressLogger } from './packages/ExpressLogger';
 import { RequestLogger } from './packages/RequestLogger';
 import Redact from './packages/Redact';
-import { LoggerContext } from './types';
+import { LoggerContext } from '../types';
 
 export const init = (config: LoggerConfig) => {
   const redact = new Redact(config.REDACTED);
