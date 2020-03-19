@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+
+## [1.3.2]
+### Fixed
+- Some properties didn't had the right type and now they have because it is using import instead of referencing some imported package
+
+## [1.3.1]
+### Fixed
+- Fix the build of the package when install inside some project
+
+## [1.3.0]
 ### Changed
 - The logs are logged outside the msg property
 
@@ -27,7 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.2.10]
 ### Fixed
-- Fixed this.logger undefined error when using the debuger for RequestDebug
+- Fixed this.logger undefined error when using the debugger for RequestDebug
 
 ## [1.2.9]
 ### Changed

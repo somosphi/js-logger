@@ -3,7 +3,7 @@
 import joi from '@hapi/joi';
 import { Request } from 'jest-express/lib/request';
 
-import logger from '../../logger';
+import { logger } from '../../logger';
 import { ExpressLogger } from '../ExpressLogger';
 import Redact from '../Redact';
 
