@@ -3,6 +3,7 @@ import bunyan from 'bunyan';
 import * as R from 'ramda';
 import { v4 as uuid } from 'uuid';
 import { Request, Response, NextFunction } from 'express';
+import { pathToRegexp } from 'path-to-regexp';
 
 import { LoggerConfig } from '../logger';
 
@@ -12,6 +13,7 @@ export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
   private readonly config: LoggerConfig;
   private redact: RedactClass;
+  private omitRoutes: RegExp[];
 
   constructor(context: LoggerContext) {
     this.redact = context.redact;
@@ -19,6 +21,11 @@ export class ExpressLogger implements IExpressLogger {
       origin: 'Express',
     });
     this.config = context.config;
+
+    const routes: string[] = context.config.OMIT_ROUTES || [];
+    this.omitRoutes = routes.map((route: string): RegExp => {
+      return pathToRegexp(route);
+    });
   }
 
   /**
@@ -30,9 +37,11 @@ export class ExpressLogger implements IExpressLogger {
   onSuccess(req: Request, res: Response, next: NextFunction): void {
     const localLogger = this.logger;
     const localRedact = this.redact;
-    const omitRoutes = this.config.OMIT_ROUTES || [];
+    const omit = this.omitRoutes.some((regexp: RegExp) => {
+      return regexp.test(req.url);
+    });
 
-    if (omitRoutes.includes(req.url)) {
+    if (omit) {
       next();
       return;
     }
