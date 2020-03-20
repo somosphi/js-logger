@@ -231,7 +231,48 @@ describe('Express Logger', () => {
         redact: new Redact(),
         config: {
           PROJECT_NAME: 'express-test',
-          OMIT_ROUTES: ['/status', '/info'],
+          OMIT_ROUTES: [
+            '/status',
+            '/info',
+          ],
+        },
+      });
+
+      const infoSpy = jest.spyOn(require('bunyan').prototype, 'info');
+
+      const req = new Request();
+      const res = {
+        end: jest.fn(),
+        getHeaders: () => ({
+          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
+        }),
+      };
+
+      // @ts-ignore
+      req.url = '/status';
+
+      eLogger.onSuccess(
+        // @ts-ignore
+        req,
+        res,
+        jest.fn(),
+      );
+      res.end();
+
+      expect(infoSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('doesnt log if it has the OMIT_ROUTES config with parameters', () => {
+      const eLogger = new ExpressLogger({
+        logger: logger({ PROJECT_NAME: 'express-logger', LOG_LEVEL: 'info' }),
+        redact: new Redact(),
+        config: {
+          PROJECT_NAME: 'express-test',
+          OMIT_ROUTES: [
+            '/status',
+            '/info',
+            '/users/:id/profile',
+          ],
         },
       });
 
@@ -243,7 +284,7 @@ describe('Express Logger', () => {
       };
 
       // @ts-ignore
-      req.url = '/status';
+      req.url = '/users/1234/profile';
 
       eLogger.onSuccess(
         // @ts-ignore

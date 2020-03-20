@@ -51,7 +51,12 @@ class Redact implements RedactClass {
     const self = this;
     // eslint-disable-next-line array-callback-return
     return traverse(obj).map(function _nameless(value): void {
-      if (self.key(this.key || '') || self.value(value)) {
+      if (self.key(this.key || '')) {
+        this.update(self.redacted);
+        return;
+      }
+
+      if (typeof value === 'string' && self.value(value)) {
         this.update(self.redacted);
       }
     });
