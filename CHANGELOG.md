@@ -5,9 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+
+
+## [1.4.2]
 ### Fixed
 - Type exports. The LoggerConfig type wasn't being exported the right way
-
 
 ## [1.4.1]
 ### Changed
