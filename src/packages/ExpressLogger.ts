@@ -5,9 +5,12 @@ import { v4 as uuid } from 'uuid';
 import { Request, Response, NextFunction } from 'express';
 import { pathToRegexp } from 'path-to-regexp';
 
-import { LoggerConfig } from '../logger';
-
-import { IExpressLogger, LoggerContext, RedactClass } from '../../types';
+import {
+  IExpressLogger,
+  LoggerContext,
+  RedactClass,
+  LoggerConfig,
+} from '../../types';
 
 export class ExpressLogger implements IExpressLogger {
   private readonly logger: bunyan;
@@ -22,7 +25,7 @@ export class ExpressLogger implements IExpressLogger {
     });
     this.config = context.config;
 
-    const routes: string[] = context.config.OMIT_ROUTES || [];
+    const routes: string[] = this.config.OMIT_ROUTES || [];
     this.omitRoutes = routes.map((route: string): RegExp => {
       return pathToRegexp(route);
     });

@@ -1,9 +1,11 @@
-import { logger as Logger, LoggerConfig } from './logger';
+import { logger as Logger } from './logger';
+
 import { AxiosLogger } from './packages/AxiosLogger';
 import { ExpressLogger } from './packages/ExpressLogger';
 import { RequestLogger } from './packages/RequestLogger';
 import Redact from './packages/Redact';
-import { LoggerContext } from '../types';
+
+import { LoggerContext, LoggerConfig } from '../types';
 
 export const init = (config: LoggerConfig) => {
   const redact = new Redact(config.REDACTED);

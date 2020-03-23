@@ -14,8 +14,6 @@ import {
   Request,
 } from 'request';
 
-import { LoggerConfig } from '../src/logger';
-
 declare global {
   // eslint-disable-next-line no-redeclare
   namespace jest {
@@ -34,6 +32,14 @@ declare module 'express' {
     __requestId__?: string;
   }
 }
+
+export type LoggerConfig = {
+  PROJECT_NAME: string;
+  LOG_LEVEL?: import('bunyan').LogLevel;
+  OMIT_ROUTES?: string[];
+  STREAMS?: import('bunyan').Stream[];
+  REDACTED?: string;
+};
 
 export type LoggerContext = {
   logger: bunyan;
