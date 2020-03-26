@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-
+### Fixed
+- Redact now check if this is undefined
+- ExpressLogger now check if body is buffer
 
 ## [1.4.2]
 ### Fixed

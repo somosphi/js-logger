@@ -75,7 +75,7 @@ export class ExpressLogger implements IExpressLogger {
       res.end = end;
       res.end(chunck, encode);
 
-      const rawBody = String(chunck);
+      const rawBody = Buffer.isBuffer(chunck) ? '[BUFFER]' : String(chunck);
       const headers = res.getHeaders();
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
