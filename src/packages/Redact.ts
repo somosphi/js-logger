@@ -59,7 +59,7 @@ class Redact implements RedactClass {
         return;
       }
 
-      if (typeof value === 'string' && self.value(value)) {
+      if (typeof value === 'string' && self.value(String(value))) {
         this.update(self.redacted);
       }
     });
