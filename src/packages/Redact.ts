@@ -37,13 +37,13 @@ class Redact implements RedactClass {
 
   key(str: string): boolean {
     return this.keys.some((regex: RegExp) => {
-      return regex.test(str);
+      return regex.test(String(str));
     });
   }
 
   value(str: string): boolean {
     return this.values.some((regex: RegExp) => {
-      return regex.test(str);
+      return regex.test(String(str));
     });
   }
 
@@ -59,7 +59,7 @@ class Redact implements RedactClass {
         return;
       }
 
-      if (typeof value === 'string' && self.value(String(value))) {
+      if (typeof value === 'string' && self.value(value)) {
         this.update(self.redacted);
       }
     });
