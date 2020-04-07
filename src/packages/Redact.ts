@@ -2,7 +2,7 @@ import traverse from 'traverse';
 import * as R from 'ramda';
 import { RedactClass } from '../../types';
 
-const KEYS = [
+const KEYS: RegExp[] = [
   // generic
   /passw(or)?d/i,
   /^pw$/,
@@ -15,9 +15,10 @@ const KEYS = [
 
   // specific
   /^connect\.sid$/, // https://github.com/expressjs/session
+  /admin[-._]?key/i,
 ];
 
-const VALUES = [
+const VALUES: RegExp[] = [
   /^\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}$/, // credit card number
 ];
 
@@ -27,23 +28,33 @@ const VALUES = [
 class Redact implements RedactClass {
   keys: RegExp[];
   values: RegExp[];
+  whitelist: string[];
   redacted: string;
 
   constructor(redacted = '[REDACTED]') {
     this.keys = [...KEYS];
     this.values = [...VALUES];
+    this.whitelist = [];
     this.redacted = redacted;
   }
 
   key(str: string): boolean {
+    const el = String(str);
+
     return this.keys.some((regex: RegExp) => {
-      return regex.test(String(str));
+      if (this.whitelist.includes(el)) {
+        return false;
+      }
+
+      return regex.test(el);
     });
   }
 
   value(str: string): boolean {
+    const el = String(str);
+
     return this.values.some((regex: RegExp) => {
-      return regex.test(String(str));
+      return regex.test(el);
     });
   }
 
@@ -67,6 +78,10 @@ class Redact implements RedactClass {
 
   addKey(key: RegExp): void {
     this.keys.push(key);
+  }
+
+  addWhitelist(key: string): void {
+    this.whitelist.push(key);
   }
 
   addValue(value: RegExp): void {
