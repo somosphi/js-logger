@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-
-
+## [1.5.1]
+### Changed
+- Change axios to peer dependencies
+- Change express to peer dependencies
+- Change request to peer dependencies
 
 ## [1.5.0]
 ### Added
