@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+
+## [1.5.2]
+### Added
+- Redact whitelist function type in the interface of the class
+
 ## [1.5.1]
 ### Changed
 - Change axios to peer dependencies
