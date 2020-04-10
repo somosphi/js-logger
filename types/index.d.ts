@@ -66,4 +66,5 @@ export interface RedactClass {
   map(obj: unknown): unknown;
   addKey(key: RegExp): void;
   addValue(value: RegExp): void;
+  addWhitelist(key: string): void
 }
