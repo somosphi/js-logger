@@ -1,6 +1,6 @@
 {
   "name": "@somosphi/logger",
-  "version": "1.5.3-0",
+  "version": "1.5.3-beta.0",
   "description": "A package to include request/response logging inside services",
   "main": "lib/index.js",
   "files": [
