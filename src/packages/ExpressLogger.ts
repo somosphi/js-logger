@@ -124,7 +124,7 @@ export class ExpressLogger implements IExpressLogger {
         method: R.prop('method', req),
         path: R.prop('url', req),
         'X-Forwarded-For': remote || null,
-        latency: R.prop('X-Request-Time', headers),
+        latency: R.prop('x-request-time', headers),
         statusCode: R.prop('statusCode', res),
       }), localRedact.map(msg));
     };
