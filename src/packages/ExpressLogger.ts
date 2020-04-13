@@ -81,11 +81,11 @@ export class ExpressLogger implements IExpressLogger {
       const bufferContents = ['application/pdf', 'text/html'];
       const contentType = headers['content-type'] as string;
 
-      const isBuffer = bufferContents.some(
+      const isBuffer = contentType && bufferContents.some(
         (h) => contentType.includes(h),
       );
 
-      if (contentType && isBuffer) {
+      if (isBuffer) {
         rawBody = '[BUFFER]';
       }
 
