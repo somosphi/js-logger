@@ -61,10 +61,10 @@ export interface IRequestLogger {
 }
 
 export interface RedactClass {
-  key(str: string): boolean;
-  value(str: string): boolean;
   map(obj: unknown): unknown;
   addKey(key: RegExp): void;
   addValue(value: RegExp): void;
-  addWhitelist(key: string): void
+  addToWhitelist(key: string): void;
+  deactivate(): void;
+  activate(): void;
 }

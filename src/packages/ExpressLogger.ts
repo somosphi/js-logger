@@ -75,8 +75,19 @@ export class ExpressLogger implements IExpressLogger {
       res.end = end;
       res.end(chunck, encode);
 
-      const rawBody = Buffer.isBuffer(chunck) ? '[BUFFER]' : String(chunck);
       const headers = res.getHeaders();
+      let rawBody = String(chunck);
+
+      const bufferContents = ['application/pdf', 'text/html'];
+      const contentType = headers['content-type'] as string;
+
+      const isBuffer = bufferContents.some(
+        (h) => contentType.includes(h),
+      );
+
+      if (contentType && isBuffer) {
+        rawBody = '[BUFFER]';
+      }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let remote: any = req.ip;

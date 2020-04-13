@@ -30,19 +30,21 @@ class Redact implements RedactClass {
   values: RegExp[];
   whitelist: string[];
   redacted: string;
+  private _isActive: boolean;
 
   constructor(redacted = '[REDACTED]') {
+    this._isActive = true;
     this.keys = [...KEYS];
     this.values = [...VALUES];
     this.whitelist = [];
     this.redacted = redacted;
   }
 
-  key(str: string): boolean {
+  protected key(str: string): boolean {
     const el = String(str);
 
     return this.keys.some((regex: RegExp) => {
-      if (this.whitelist.includes(el)) {
+      if (!this._isActive || this.whitelist.includes(el)) {
         return false;
       }
 
@@ -50,7 +52,7 @@ class Redact implements RedactClass {
     });
   }
 
-  value(str: string): boolean {
+  protected value(str: string): boolean {
     const el = String(str);
 
     return this.values.some((regex: RegExp) => {
@@ -80,12 +82,20 @@ class Redact implements RedactClass {
     this.keys.push(key);
   }
 
-  addWhitelist(key: string): void {
+  addToWhitelist(key: string): void {
     this.whitelist.push(key);
   }
 
   addValue(value: RegExp): void {
     this.values.push(value);
+  }
+
+  deactivate(): void {
+    this._isActive = false;
+  }
+
+  activate(): void {
+    this._isActive = true;
   }
 }
 
