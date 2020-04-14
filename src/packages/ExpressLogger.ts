@@ -95,8 +95,8 @@ export class ExpressLogger implements IExpressLogger {
         remote = headers['CF-Connecting-IP'];
       } else if (headers['True-Client-IP']) {
         remote = headers['True-Client-IP'];
-      } else if (headers['X-Forwarded-For']) {
-        remote = headers['X-Forwarded-For'];
+      } else if (headers['x-forwarded-for']) {
+        remote = headers['x-forwarded-for'];
       }
 
       let body;

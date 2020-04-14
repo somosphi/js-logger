@@ -42,7 +42,7 @@ describe('Express Logger', () => {
       const res = {
         end: jest.fn(),
         getHeaders: () => ({
-          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
+          'x-forwarded-for': ['192.168.0.1', '127.0.0.1'],
         }),
       };
 
@@ -93,8 +93,8 @@ describe('Express Logger', () => {
       const res = {
         end: jest.fn(),
         getHeaders: () => ({
-          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
-          'X-Request-Time': 1.2323232,
+          'x-forwarded-for': ['192.168.0.1', '127.0.0.1'],
+          'x-request-time': 1.2323232,
         }),
       };
 
@@ -146,8 +146,8 @@ describe('Express Logger', () => {
       const res = {
         end: jest.fn(),
         getHeaders: () => ({
-          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
-          'X-Request-Time': 1.2323232,
+          'x-forwarded-for': ['192.168.0.1', '127.0.0.1'],
+          'x-request-time': 1.2323232,
         }),
       };
 
@@ -188,7 +188,7 @@ describe('Express Logger', () => {
       const res = {
         end: jest.fn(),
         getHeaders: () => ({
-          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
+          'x-forwarded-for': ['192.168.0.1', '127.0.0.1'],
         }),
       };
 
@@ -244,7 +244,7 @@ describe('Express Logger', () => {
       const res = {
         end: jest.fn(),
         getHeaders: () => ({
-          'X-Forwarded-For': ['192.168.0.1', '127.0.0.1'],
+          'x-forwarded-for': ['192.168.0.1', '127.0.0.1'],
         }),
       };
 
