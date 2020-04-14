@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- XLS content type headers to redact as BUFFER
+  
+### Fixed
+- The select of the headers to present in the express logging
 
 
 ## [1.5.3]
