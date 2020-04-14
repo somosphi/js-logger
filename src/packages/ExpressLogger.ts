@@ -78,7 +78,12 @@ export class ExpressLogger implements IExpressLogger {
       const headers = res.getHeaders();
       let rawBody = String(chunck);
 
-      const bufferContents = ['application/pdf', 'text/html'];
+      const bufferContents = [
+        'application/pdf',
+        'text/html',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      ];
       const contentType = headers['content-type'] as string;
 
       const isBuffer = contentType && bufferContents.some(
